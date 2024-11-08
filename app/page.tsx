@@ -6,10 +6,10 @@ import { useRouter } from 'next/navigation';
 
 const Preview = () => {
   const texts = [
-    "Sexy as Shreehari",
-    "Black as blacky", // Removed offensive term
-    "Skinny as skeleton",
-    "White as Tharkuri"
+    "Resume in portfolio out",
+    "JSON-rich templates stout",
+    "Custom domain no doubt",
+    "Smooth as silk geek it out!"
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -37,7 +37,7 @@ const Preview = () => {
           </div>
           <nav className="space-x-6">
             <Link href="#" className="hover:underline">PORTFOLIOS</Link>
-            <Link href="#" className="hover:underline">TEMPLATES</Link>
+            <Link href="/templates" className="hover:underline">TEMPLATES</Link>
             <Link href="#" className="hover:underline">RESOURCES</Link>
           </nav>
           <div className="space-x-4">
@@ -67,7 +67,7 @@ const Preview = () => {
           </div>
         </main>
 
-        <div className="absolute top-[50%] left-[60%] transform -translate-x-1/2 -translate-y-1/2 text-teal-700 text-2xl font-bold space-y-1">
+        <div className="absolute ml-6 top-[50%] left-[60%] transform -translate-x-1/2 -translate-y-1/2 text-teal-700 text-2xl font-bold space-y-1">
           {texts.map((text, index) => (
             <div key={index} className={index === currentIndex ? "underline opacity-65" : "opacity-45"}>
               {text}
