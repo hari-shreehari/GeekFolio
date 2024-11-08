@@ -33,7 +33,7 @@ const Preview = () => {
       <div className="relative z-10 min-h-screen">
         <header className="p-4 flex justify-between items-center -ml-[2px] px-10">
           <div className="text-2xl font-bold">
-            <h1>Enga Logo</h1>
+            <h1>VULTR</h1>
           </div>
           <nav className="space-x-6">
             <Link href="#" className="hover:underline">PORTFOLIOS</Link>
