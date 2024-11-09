@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { PortfolioComponent } from '@/components/Site/portfolio'
-import { TechInnovatorPortfolioComponent } from '@/components/Site/TechInnovatorPortfolio'
-import { ComprehensiveDataAnalystPortfolio } from '@/components/Site/SimpleDataAnalystPortfolio'
-import { BusinessPortfolioComponent } from '@/components/Site/BusinessPortfolio'
+import { TechInnovatorPortfolioComponent } from './Site/TechInnovatorPortfolio'
+import { ComprehensiveDataAnalystPortfolio } from './Site/SimpleDataAnalystPortfolio'
+import { BusinessPortfolioComponent } from './Site/BusinessPortfolio'
 
 type Template = {
   id: number;
@@ -83,7 +83,7 @@ const ColorfulTemplateSelection: React.FC<TemplateSelectorProps> = ({ onSelectTe
   const handleSelectTemplate = (template: Template) => {
     onSelectTemplate(template.name)
     setSelectedTemplate(template)
-    console.log(template.component)
+    console.log(template.name)
   }
 
   const filteredTemplates = templates.filter(template => 
