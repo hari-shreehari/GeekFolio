@@ -59,7 +59,7 @@ const templates = [
     color: "bg-blue-50",
     accentColor: "bg-blue-600",
     textColor: "text-blue-800",
-    component: <BusinessPortfolioComponent data={undefined} />
+    component: <BusinessPortfolioComponent />
   }
 ]
 interface TemplateSelectorProps {

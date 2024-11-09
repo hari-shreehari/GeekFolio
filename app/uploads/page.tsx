@@ -35,34 +35,35 @@ export default function Upload() {
     await handleProcessCompletion(selectedFile);
   };
 
-    const handleProcessCompletion = (file: File) => {
-      setAiLoading(true);
-      setError(null);
-    
-      const formData = new FormData();
-      formData.append('file', file);
-    
-      fetch("/api/extract", {
-        method: 'POST',
-        body: formData,
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to process resume');
-        }
-        return response.json();
-      })
-      .then(parsedData => {
-        console.log(parsedData.structured_json);
-        setResumeData(parsedData.structured_json);
-        setCurrentStep(2);
-      })
-      .catch(err => {
-        setError('Failed to process the resume. Please try again.');
-      })
-      .finally(() => {
-        setAiLoading(false);
-      });
+  const handleProcessCompletion = (file: File) => {
+    setAiLoading(true);
+    setError(null);
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    fetch("/api/extract", {
+      method: 'POST',
+      body: formData,
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to process resume');
+      }
+      return response.json();
+    })
+    .then(parsedData => {
+      const formattedData = JSON.parse(parsedData.structured_json);
+      console.log(formattedData);
+      setResumeData(formattedData);
+      setCurrentStep(2);
+    })
+    .catch(err => {
+      setError('Failed to process the resume. Please try again.');
+    })
+    .finally(() => {
+      setAiLoading(false);
+    });
   };
 
   const handleTemplateSelection = (templateName: string) => {

@@ -59,13 +59,15 @@ const templates = [
     color: "bg-blue-50",
     accentColor: "bg-blue-600",
     textColor: "text-blue-800",
-    component: <BusinessPortfolioComponent data={undefined} />
+    component: <BusinessPortfolioComponent/>
   }
 ]
-interface TemplateSelectorProps {
-  onSelectTemplate: (template: string) => void;
+
+interface ColorfulTemplateSelectionProps {
+  onSelectTemplate: (template: Template) => void;
 }
-const ColorfulTemplateSelection: React.FC<TemplateSelectorProps> = ({ onSelectTemplate }) =>  {
+
+const ColorfulTemplateSelection: React.FC = () =>  {
   const [searchTerm, setSearchTerm] = useState<string>("")
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(null)
@@ -81,7 +83,6 @@ const ColorfulTemplateSelection: React.FC<TemplateSelectorProps> = ({ onSelectTe
   }
 
   const handleSelectTemplate = (template: Template) => {
-    onSelectTemplate(template.name)
     setSelectedTemplate(template)
     console.log(template.component)
   }
