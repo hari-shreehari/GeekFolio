@@ -10,6 +10,72 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Database, Mail, Linkedin, Github, MapPin, Briefcase, GraduationCap, Lightbulb, Award } from "lucide-react"
 import { ReactNode } from 'react';
 
+type PersonalInformation = {
+  name: string;
+  title: string;
+  avatar: string;
+  contact_information: {
+    email: string;
+    phone_number: string;
+    address: string;
+  };
+  linkedin_profile: string;
+  github_profile: string;
+  objective_summary: {
+    career_objective: string;
+    professional_summary: string;
+  };
+};
+
+type ResumeData = {
+  personal_information: PersonalInformation;
+  skills: {
+    technical_skills: {
+      skill: string;
+      proficiency: number;
+    }[];
+    soft_skills: string[];
+  };
+  experience: {
+    job_title: string;
+    company_name: string;
+    location: {
+      city: string;
+      state: string;
+    };
+    dates_of_employment: {
+      start_date: string;
+      end_date: string;
+    };
+    responsibilities_achievements: string[];
+  }[];
+  projects: {
+    project_title: string;
+    technologies_used: string[];
+    duration: {
+      start_date: string;
+      end_date: string;
+    };
+    project_description: string;
+  }[];
+  education: {
+    degree: string;
+    major_field_of_study: string;
+    university_institution_name: string;
+    graduation_date: string;
+    cgpa_grades: string;
+  }[];
+  certifications: {
+    certification_title: string;
+    issuing_organization: string;
+    date_obtained: string;
+  }[];
+  achievements: string[];
+  languages: {
+    language_proficiency: string;
+    level_of_proficiency: string;
+  }[];
+};
 
 const mockData = {
   personal_information: {
@@ -141,7 +207,7 @@ const IconWrapper = ({ icon: Icon }: { icon: React.ComponentType<React.SVGProps<
   </div>
 )
 
-export function ComprehensiveDataAnalystPortfolio({ data = mockData }) {
+export function ComprehensiveDataAnalystPortfolio({ data = mockData }: { data: ResumeData }) {
   const [activeTab, setActiveTab] = useState('about')
   return (
     <div className="min-h-screen bg-yellow-50">

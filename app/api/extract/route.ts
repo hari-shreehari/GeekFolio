@@ -4,7 +4,9 @@ export async function POST(request: Request) {
   const formData = await request.formData()
   
   try {
-    const response = await fetch("http://139.84.156.72:8000/extract", {
+    // const response = await fetch("http://139.84.156.72:8000/extract", {
+    const response = await fetch("http://0.0.0.0:8000/extract", {
+
       method: 'POST',
       body: formData,
     })
