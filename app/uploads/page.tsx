@@ -27,17 +27,41 @@ export default function Upload() {
   const [aiLoading, setAiLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isPreviewMode, setIsPreviewMode] = useState(false);
-  const [resumeData, setResumeData] = useState<ResumeData>({
-    personal_information: [],
+const [resumeData, setResumeData] = useState<ResumeData>({
+    personal_information: {
+        name: "",
+        contact_information: {
+            phone_number: "",
+            email: "",
+            address: ""
+        },
+        linkedin_profile: "",
+        github_profile: "",
+        objective_summary: {
+            career_objective: "",
+            professional_summary: ""
+        }
+    },
     education: [],
     experience: [],
     projects: [],
     certifications: [],
-    skills: { technical_skills: [], soft_skills: [] },
-    achievements: { awards_honors: [], scholarships: [], competitions: [] },
-    extracurricular_activities: { clubs_organizations: [], volunteer_work: [], leadership_roles: [] },
-    languages: [],
-  });
+    skills: {
+        technical_skills: [],
+        soft_skills: []
+    },
+    achievements: {
+        awards_honors: [],
+        scholarships: [],
+        competitions: []
+    },
+    extracurricular_activities: {
+        clubs_organizations: [],
+        volunteer_work: [],
+        leadership_roles: []
+    },
+    languages: []
+});
   const router = useRouter();
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {

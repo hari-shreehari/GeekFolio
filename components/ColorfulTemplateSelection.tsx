@@ -1,13 +1,14 @@
+// components/ColorfulTemplateSelection.tsx
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { PortfolioComponent } from '@/components/Site/portfolio'
-import { TechInnovatorPortfolioComponent } from './Site/TechInnovatorPortfolio'
-import { ComprehensiveDataAnalystPortfolio } from './Site/SimpleDataAnalystPortfolio'
-import { BusinessPortfolioComponent } from './Site/BusinessPortfolio'
+import { TechInnovatorPortfolioComponent } from '@/components/Site/TechInnovatorPortfolio'
+import { ComprehensiveDataAnalystPortfolio } from '@/components/Site/SimpleDataAnalystPortfolio'
+import { BusinessPortfolioComponent } from '@/components/Site/BusinessPortfolio'
 import { ResumeData } from '@/utils/types'
 import { mockData } from '@/utils/mockData'
 
@@ -65,14 +66,21 @@ const templates: Template[] = [
   }
 ];
 
-interface TemplateSelectorProps {
-  onSelectTemplate: (template: string) => void;
-}
-
-const ColorfulTemplateSelection: React.FC<TemplateSelectorProps> = ({ onSelectTemplate }) => {
+const ColorfulTemplateSelection = () => {
   const [searchTerm, setSearchTerm] = useState<string>("")
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(null)
+
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isModalOpen])
 
   const handlePreviewClick = (template: Template) => {
     setSelectedTemplate(template)
@@ -85,20 +93,19 @@ const ColorfulTemplateSelection: React.FC<TemplateSelectorProps> = ({ onSelectTe
   }
 
   const handleSelectTemplate = (template: Template) => {
-    onSelectTemplate(template.name)
     setSelectedTemplate(template)
-    console.log(template.name)
+    // Handle template selection logic here
   }
-
-  const renderTemplateComponent = (template: Template) => {
-    const TemplateComponent = template.component;
-    return <TemplateComponent data={mockData} />;
-  };
 
   const filteredTemplates = templates.filter(template => 
     template.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     template.description.toLowerCase().includes(searchTerm.toLowerCase())
   )
+
+  const renderTemplateComponent = (template: Template) => {
+    const TemplateComponent = template.component;
+    return <TemplateComponent data={mockData} />;
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -180,7 +187,7 @@ const ColorfulTemplateSelection: React.FC<TemplateSelectorProps> = ({ onSelectTe
           >
             <button 
               onClick={closeModal}
-              className="absolute top-4 right-4 text-2xl text-gray-600 hover:text-gray-900"
+              className="absolute top-4 right-4 z-[60] text-2xl text-gray-600 hover:text-gray-900"
             >
               &times;
             </button>
@@ -191,7 +198,10 @@ const ColorfulTemplateSelection: React.FC<TemplateSelectorProps> = ({ onSelectTe
             </div>
 
             <div className="mt-4 flex justify-center">
-              <Button onClick={closeModal} className="bg-gray-600 text-white">
+              <Button 
+                onClick={closeModal} 
+                className="bg-gray-600 text-white z-[60]"
+              >
                 Close
               </Button>
             </div>

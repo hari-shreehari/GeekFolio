@@ -9,187 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Database, Mail, Linkedin, Github, MapPin, Briefcase, GraduationCap, Lightbulb, Award } from "lucide-react"
 import { ReactNode } from 'react';
-
-type PersonalInformation = {
-  name: string;
-  title: string;
-  avatar: string;
-  contact_information: {
-    email: string;
-    phone_number: string;
-    address: string;
-  };
-  linkedin_profile: string;
-  github_profile: string;
-  objective_summary: {
-    career_objective: string;
-    professional_summary: string;
-  };
-};
-
-type ResumeData = {
-  personal_information: PersonalInformation;
-  skills: {
-    technical_skills: {
-      skill: string;
-      proficiency: number;
-    }[];
-    soft_skills: string[];
-  };
-  experience: {
-    job_title: string;
-    company_name: string;
-    location: {
-      city: string;
-      state: string;
-    };
-    dates_of_employment: {
-      start_date: string;
-      end_date: string;
-    };
-    responsibilities_achievements: string[];
-  }[];
-  projects: {
-    project_title: string;
-    technologies_used: string[];
-    duration: {
-      start_date: string;
-      end_date: string;
-    };
-    project_description: string;
-  }[];
-  education: {
-    degree: string;
-    major_field_of_study: string;
-    university_institution_name: string;
-    graduation_date: string;
-    cgpa_grades: string;
-  }[];
-  certifications: {
-    certification_title: string;
-    issuing_organization: string;
-    date_obtained: string;
-  }[];
-  achievements: string[];
-  languages: {
-    language_proficiency: string;
-    level_of_proficiency: string;
-  }[];
-};
-
-const mockData = {
-  personal_information: {
-    name: "AJAY B",
-    title: "COMPETITIVE CODER",
-    avatar: "/placeholder.svg?height=180&width=180",
-    contact_information: {
-      email: "ajaybalajiprasad002@gmail.com",
-      phone_number: "+91 8122750426",
-      address: ""
-    },
-    linkedin_profile: "",
-    github_profile: "github.com/ajaybalajiprasad",
-    objective_summary: {
-      career_objective: "",
-      professional_summary: "COMPETITIVE CODER"
-    }
-  },
-  skills: {
-    technical_skills: [
-      { skill: "JavaScript", proficiency: 0 },
-      { skill: "Node", proficiency: 0 },
-      { skill: "Next", proficiency: 0 },
-      { skill: "Express", proficiency: 0 },
-      { skill: "Python", proficiency: 0 },
-      { skill: "Django", proficiency: 0 },
-      { skill: "PostgreSQL", proficiency: 0 },
-      { skill: "SupaBase", proficiency: 0 },
-      { skill: "Mongo DB", proficiency: 0 },
-      { skill: "C++", proficiency: 0 },
-      { skill: "Git", proficiency: 0 },
-      { skill: "AWS", proficiency: 0 },
-      { skill: "Linux", proficiency: 0 },
-      { skill: "Arduino", proficiency: 0 }
-    ],
-    soft_skills: []
-  },
-  experience: [
-    {
-      job_title: "FOUNDER",
-      company_name: "PREPEX",
-      location: {
-        city: "",
-        state: ""
-      },
-      dates_of_employment: {
-        start_date: "2024",
-        end_date: "Present"
-      },
-      responsibilities_achievements: [
-        "Developing a Personalized Student Preparation App",
-        "Creating a Web App with NEXT JS",
-        "Acquiring Team Experience",
-        "Mastering Various Tech Stacks"
-      ]
-    },
-    {
-      job_title: "BACKEND DEVELOPER",
-      company_name: "BITSPACE",
-      location: {
-        city: "",
-        state: ""
-      },
-      dates_of_employment: {
-        start_date: "2024 Feb",
-        end_date: "Mar"
-      },
-      responsibilities_achievements: [
-        "Created a website for a College Event",
-        "Worked with seniors for the backend team",
-        "Acquired experience in various tech stacks"
-      ]
-    }
-  ],
-  projects: [
-    {
-      project_title: "Project Title",
-      technologies_used: ["Tech1", "Tech2"],
-      duration: {
-        start_date: "Start Date",
-        end_date: "End Date"
-      },
-      project_description: "Description of the project"
-    }
-  ],
-  education: [
-    {
-      degree: "Bachelor of Electrical and Communication Engineering",
-      major_field_of_study: "",
-      university_institution_name: "CHENNAI INSTITUTE OF TECHNOLOGY AND APPLIED RESEARCH",
-      graduation_date: "2027",
-      cgpa_grades: ""
-    },
-    {
-      degree: "",
-      major_field_of_study: "",
-      university_institution_name: "ST.ANNS MAT HR SEC SCHOOL",
-      graduation_date: "2023",
-      cgpa_grades: ""
-    }
-  ],
-  certifications: [
-    {
-      certification_title: "Certification Title",
-      issuing_organization: "Issuing Organization",
-      date_obtained: "Date Obtained"
-    }
-  ],
-  achievements: [
-    "Winner of Makeathon 2023 (Prize Worth 50,000)",
-    "Solved over 330+ problems on LeetCode, With highest contest rating of 1791"
-  ],
-  languages: []
-}
+import { ResumeData } from '@/utils/types'
 
 const AnimatedSection = ({ children }: { children: ReactNode }) => (
   <motion.div
@@ -207,8 +27,9 @@ const IconWrapper = ({ icon: Icon }: { icon: React.ComponentType<React.SVGProps<
   </div>
 )
 
-export function ComprehensiveDataAnalystPortfolio({ data = mockData }: { data: ResumeData }) {
+export function ComprehensiveDataAnalystPortfolio({ data }: { data: ResumeData }) {
   const [activeTab, setActiveTab] = useState('about')
+
   return (
     <div className="min-h-screen bg-yellow-50">
       <header className="bg-yellow-100 shadow-sm">
@@ -236,20 +57,28 @@ export function ComprehensiveDataAnalystPortfolio({ data = mockData }: { data: R
               <CardContent className="pt-6">
                 <div className="flex flex-col items-center">
                   <Avatar className="w-32 h-32 mb-4 border-4 border-red-200">
-                    <AvatarImage src={data.personal_information.avatar} alt={data.personal_information.name} />
+                    <AvatarImage src={data.personal_information.avatar || "/placeholder.svg"} alt={data.personal_information.name} />
                     <AvatarFallback>{data.personal_information.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                   </Avatar>
                   <h2 className="text-2xl font-bold text-center mb-1">{data.personal_information.name}</h2>
-                  <p className="text-sm text-red-700 text-center mb-4">{data.personal_information.title}</p>
+                  <p className="text-sm text-red-700 text-center mb-4">
+                    {data.personal_information.title || data.personal_information.objective_summary.career_objective}
+                  </p>
                   <div className="flex justify-center space-x-2 mb-6">
                     <Button variant="outline" size="icon" asChild>
-                      <a href={`mailto:${data.personal_information.contact_information.email}`}><Mail size={18} /></a>
+                      <a href={`mailto:${data.personal_information.contact_information.email}`}>
+                        <Mail size={18} />
+                      </a>
                     </Button>
                     <Button variant="outline" size="icon" asChild>
-                      <a href={data.personal_information.linkedin_profile} target="_blank" rel="noopener noreferrer"><Linkedin size={18} /></a>
+                      <a href={data.personal_information.linkedin_profile} target="_blank" rel="noopener noreferrer">
+                        <Linkedin size={18} />
+                      </a>
                     </Button>
                     <Button variant="outline" size="icon" asChild>
-                      <a href={data.personal_information.github_profile} target="_blank" rel="noopener noreferrer"><Github size={18} /></a>
+                      <a href={data.personal_information.github_profile} target="_blank" rel="noopener noreferrer">
+                        <Github size={18} />
+                      </a>
                     </Button>
                   </div>
                 </div>
@@ -292,8 +121,12 @@ export function ComprehensiveDataAnalystPortfolio({ data = mockData }: { data: R
                     {data.experience.map((job, index) => (
                       <div key={index} className="mb-6 last:mb-0">
                         <h3 className="font-semibold text-red-800">{job.job_title}</h3>
-                        <p className="text-sm text-red-700">{job.company_name} - {job.location.city}, {job.location.state}</p>
-                        <p className="text-sm text-red-600">{job.dates_of_employment.start_date} - {job.dates_of_employment.end_date}</p>
+                        <p className="text-sm text-red-700">
+                          {job.company_name} - {job.location.city}, {job.location.state}
+                        </p>
+                        <p className="text-sm text-red-600">
+                          {job.dates_of_employment.start_date} - {job.dates_of_employment.end_date}
+                        </p>
                         <ul className="list-disc list-inside text-red-800 mt-2">
                           {job.responsibilities_achievements.map((responsibility, idx) => (
                             <li key={idx}>{responsibility}</li>
@@ -317,9 +150,23 @@ export function ComprehensiveDataAnalystPortfolio({ data = mockData }: { data: R
                     {data.projects.map((project, index) => (
                       <div key={index} className="mb-6 last:mb-0">
                         <h3 className="font-semibold text-red-800">{project.project_title}</h3>
-                        <p className="text-sm text-red-700">Technologies Used: {project.technologies_used.join(', ')}</p>
-                        <p className="text-sm text-red-600">{project.duration.start_date} - {project.duration.end_date}</p>
+                        <p className="text-sm text-red-700">
+                          Technologies Used: {project.technologies_used.join(', ')}
+                        </p>
+                        <p className="text-sm text-red-600">
+                          {project.duration.start_date} - {project.duration.end_date}
+                        </p>
                         <p className="text-red-800 mt-2">{project.project_description}</p>
+                        {project.project_links && (
+                          <a 
+                            href={project.project_links} 
+                            className="text-red-600 hover:text-red-800 mt-2 inline-block"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            View Project
+                          </a>
+                        )}
                       </div>
                     ))}
                   </CardContent>
@@ -343,7 +190,9 @@ export function ComprehensiveDataAnalystPortfolio({ data = mockData }: { data: R
                       <TabsContent value="education">
                         {data.education.map((edu, index) => (
                           <div key={index} className="mb-4 last:mb-0">
-                            <h3 className="font-semibold text-red-800">{edu.degree} in {edu.major_field_of_study}</h3>
+                            <h3 className="font-semibold text-red-800">
+                              {edu.degree} in {edu.major_field_of_study}
+                            </h3>
                             <p className="text-sm text-red-700">{edu.university_institution_name}</p>
                             <p className="text-sm text-red-600">{edu.graduation_date}</p>
                             <p className="text-sm text-red-700">CGPA: {edu.cgpa_grades}</p>
@@ -374,7 +223,7 @@ export function ComprehensiveDataAnalystPortfolio({ data = mockData }: { data: R
                   </CardHeader>
                   <CardContent>
                     <ul className="list-disc list-inside text-red-800">
-                      {data.achievements.map((achievement, index) => (
+                      {data.achievements.awards_honors.map((achievement, index) => (
                         <li key={index}>{achievement}</li>
                       ))}
                     </ul>

@@ -10,6 +10,7 @@ import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Linkedin, Mail, Briefcase, GraduationCap, Award, Globe, BarChart, PieChart, TrendingUp } from "lucide-react"
 import { ReactNode } from 'react';
+import { ResumeData } from '@/utils/types'
 
 const AnimatedSection = ({ children }: { children: ReactNode }) => {
   const ref = useRef(null)
@@ -31,124 +32,7 @@ const AnimatedSection = ({ children }: { children: ReactNode }) => {
   )
 }
 
-// Mock data object
-const mockData = {
-  personal_information: {
-    name: "AJAY B",
-    title: "COMPETITIVE CODER",
-    contact_information: {
-      phone_number: "+91 8122750426",
-      email: "ajaybalajiprasad002@gmail.com",
-      address: ""
-    },
-    linkedin_profile: "",
-    github_profile: "github.com/ajaybalajiprasad",
-    objective_summary: {
-      career_objective: "",
-      professional_summary: "COMPETITIVE CODER"
-    }
-  },
-  education: [
-    {
-      degree: "Bachelor of Electrical and Communication Engineering",
-      major_field_of_study: "",
-      university_institution_name: "CHENNAI INSTITUTE OF TECHNOLOGY AND APPLIED RESEARCH",
-      graduation_date: "2027",
-      cgpa_grades: ""
-    },
-    {
-      degree: "",
-      major_field_of_study: "",
-      university_institution_name: "ST.ANNS MAT HR SEC SCHOOL",
-      graduation_date: "2023",
-      cgpa_grades: ""
-    }
-  ],
-  experience: [
-    {
-      job_title: "FOUNDER",
-      company_name: "PREPEX",
-      location: {
-        city: "",
-        state: ""
-      },
-      dates_of_employment: {
-        start_date: "2024",
-        end_date: "Present"
-      },
-      responsibilities_achievements: [
-        "Developing a Personalized Student Preparation App",
-        "Creating a Web App with NEXT JS",
-        "Acquiring Team Experience",
-        "Mastering Various Tech Stacks"
-      ]
-    },
-    {
-      job_title: "BACKEND DEVELOPER",
-      company_name: "BITSPACE",
-      location: {
-        city: "",
-        state: ""
-      },
-      dates_of_employment: {
-        start_date: "2024 Feb",
-        end_date: "Mar"
-      },
-      responsibilities_achievements: [
-        "Created a website for a College Event",
-        "Worked with seniors for the backend team",
-        "Acquired experience in various tech stacks"
-      ]
-    }
-  ],
-  projects: [
-    {
-      project_title: "Project Title Example",
-      technologies_used: "Technologies Used Example",
-      duration: {
-        start_date: "Start Date Example",
-        end_date: "End Date Example"
-      },
-      project_description: "Project Description Example"
-    }
-  ],
-  certifications: [
-    {
-      certification_title: "Certified Kubernetes Administrator",
-      issuing_organization: "Cloud Native Computing Foundation",
-      date_obtained: "2022-08-15"
-    }
-  ],
-  skills: {
-    technical_skills: [
-      { skill: "JavaScript", proficiency: 0 },
-      { skill: "Node", proficiency: 0 },
-      { skill: "Next", proficiency: 0 },
-      { skill: "Express", proficiency: 0 },
-      { skill: "Python", proficiency: 0 },
-      { skill: "Django", proficiency: 0 },
-      { skill: "PostgreSQL", proficiency: 0 },
-      { skill: "SupaBase", proficiency: 0 },
-      { skill: "Mongo DB", proficiency: 0 },
-      { skill: "C++", proficiency: 0 },
-      { skill: "Git", proficiency: 0 },
-      { skill: "AWS", proficiency: 0 },
-      { skill: "Linux", proficiency: 0 },
-      { skill: "Arduino", proficiency: 0 }
-    ],
-    soft_skills: []
-  },
-  achievements: [
-    "Winner of Makeathon 2023 (Prize Worth 50,000)",
-    "Solved over 330+ problems on LeetCode, With highest contest rating of 1791"
-  ],
-  languages: [
-    { language_proficiency: "English", level_of_proficiency: "Fluent" },
-    { language_proficiency: "Spanish", level_of_proficiency: "Intermediate" }
-  ]
-}
-
-const PortfolioSection = ({ projects }: { projects: typeof mockData.projects }) => (
+const PortfolioSection = ({ projects }: { projects: ResumeData['projects'] }) => (
   <AnimatedSection>
     <section className="mb-16">
       <h3 className="text-2xl font-semibold mb-6 flex items-center text-gray-800">
@@ -159,11 +43,18 @@ const PortfolioSection = ({ projects }: { projects: typeof mockData.projects }) 
         <Card key={index} className="mb-6">
           <CardHeader>
             <CardTitle>{project.project_title}</CardTitle>
-            <CardDescription>{project.technologies_used}</CardDescription>
+            <CardDescription>{project.technologies_used.join(', ')}</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-gray-600 mb-2">{project.duration.start_date} - {project.duration.end_date}</p>
+            <p className="text-sm text-gray-600 mb-2">
+              {project.duration.start_date} - {project.duration.end_date}
+            </p>
             <p className="text-gray-700">{project.project_description}</p>
+            {project.project_links && (
+              <a href={project.project_links} className="text-blue-600 hover:text-blue-800 mt-2 inline-block">
+                View Project
+              </a>
+            )}
           </CardContent>
         </Card>
       ))}
@@ -171,7 +62,7 @@ const PortfolioSection = ({ projects }: { projects: typeof mockData.projects }) 
   </AnimatedSection>
 )
 
-export function BusinessPortfolioComponent({ data = mockData }) {
+export function BusinessPortfolioComponent({ data }: { data: ResumeData }) {
   const { scrollYProgress } = useScroll()
   const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '50%'])
 
@@ -180,7 +71,7 @@ export function BusinessPortfolioComponent({ data = mockData }) {
       <motion.div 
         className="fixed inset-0 z-0"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')",
+          backgroundImage: "url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           y: backgroundY,
@@ -224,18 +115,22 @@ export function BusinessPortfolioComponent({ data = mockData }) {
           <AnimatedSection>
             <section className="text-center mb-16">
               <Avatar className="w-40 h-40 mx-auto mb-6 border-4 border-white shadow-lg">
-                <AvatarImage src="/placeholder.svg?height=160&width=160" alt={data.personal_information.name} />
+                <AvatarImage src={data.personal_information.avatar || "/placeholder.svg"} alt={data.personal_information.name} />
                 <AvatarFallback>{data.personal_information.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
               </Avatar>
               <h2 className="text-4xl font-bold mb-2 text-gray-800">{data.personal_information.name}</h2>
-              <p className="text-xl text-gray-600 mb-4">{data.personal_information.title}</p>
+              <p className="text-xl text-gray-600 mb-4">{data.personal_information.title || data.personal_information.objective_summary.career_objective}</p>
               <p className="text-lg text-gray-600 mb-6">{data.personal_information.objective_summary.career_objective}</p>
               <div className="flex justify-center space-x-4">
-                <Button variant="outline" size="icon">
-                  <Linkedin className="h-5 w-5" />
+                <Button variant="outline" size="icon" asChild>
+                  <a href={`mailto:${data.personal_information.contact_information.email}`}>
+                    <Mail className="h-5 w-5" />
+                  </a>
                 </Button>
-                <Button variant="outline" size="icon">
-                  <Mail className="h-5 w-5" />
+                <Button variant="outline" size="icon" asChild>
+                  <a href={data.personal_information.linkedin_profile} target="_blank" rel="noopener noreferrer">
+                    <Linkedin className="h-5 w-5" />
+                  </a>
                 </Button>
               </div>
             </section>
@@ -267,10 +162,14 @@ export function BusinessPortfolioComponent({ data = mockData }) {
                 <Card key={index} className="mb-6">
                   <CardHeader>
                     <CardTitle>{exp.job_title}</CardTitle>
-                    <CardDescription>{exp.company_name} | {exp.location.city}, {exp.location.state}</CardDescription>
+                    <CardDescription>
+                      {exp.company_name} | {exp.location.city}, {exp.location.state}
+                    </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-gray-600 mb-2">{exp.dates_of_employment.start_date} - {exp.dates_of_employment.end_date}</p>
+                    <p className="text-sm text-gray-600 mb-2">
+                      {exp.dates_of_employment.start_date} - {exp.dates_of_employment.end_date}
+                    </p>
                     <ul className="list-disc list-inside">
                       {exp.responsibilities_achievements.map((item, i) => (
                         <li key={i} className="text-gray-700">{item}</li>
@@ -296,7 +195,9 @@ export function BusinessPortfolioComponent({ data = mockData }) {
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-gray-600">Graduated: {edu.graduation_date}</p>
-                    <p className="text-sm text-gray-600">GPA: {edu.cgpa_grades}</p>
+                    {edu.cgpa_grades && (
+                      <p className="text-sm text-gray-600">GPA: {edu.cgpa_grades}</p>
+                    )}
                   </CardContent>
                 </Card>
               ))}
@@ -317,26 +218,26 @@ export function BusinessPortfolioComponent({ data = mockData }) {
                 <TabsContent value="technical">
                   <Card>
                     <CardContent className="pt-6">
-                      {data.skills.technical_skills.map((skill, index) => (
-                        <div key={index} className="mb-4">
-                          <div className="flex justify-between mb-1">
-                            <span className="text-sm font-medium text-gray-700">{skill.skill}</span>
-                            <span className="text-sm font-medium text-gray-700">{skill.proficiency}%</span>
-                          </div>
-                          <Progress value={skill.proficiency} className="w-full" />
-                        </div>
-                      ))}
+                      <div className="flex flex-wrap gap-2">
+                        {Array.isArray(data.skills.technical_skills) && 
+                          data.skills.technical_skills.map((skill, index) => (
+                            <Badge key={index} variant="secondary">
+                              {typeof skill === 'string' ? skill : skill.skill}
+                            </Badge>
+                          ))
+                        }
+                      </div>
                     </CardContent>
                   </Card>
                 </TabsContent>
                 <TabsContent value="soft">
                   <Card>
                     <CardContent className="pt-6">
-                      <ul className="list-disc list-inside">
+                      <div className="flex flex-wrap gap-2">
                         {data.skills.soft_skills.map((skill, index) => (
-                          <li key={index} className="text-gray-700 mb-2">{skill}</li>
+                          <Badge key={index} variant="secondary">{skill}</Badge>
                         ))}
-                      </ul>
+                      </div>
                     </CardContent>
                   </Card>
                 </TabsContent>
@@ -350,34 +251,12 @@ export function BusinessPortfolioComponent({ data = mockData }) {
             <section className="mb-16">
               <h3 className="text-2xl font-semibold mb-6 flex items-center text-gray-800">
                 <Award className="mr-2" />
-                Certifications
-              </h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                {data.certifications.map((cert, index) => (
-                  <Card key={index}>
-                    <CardHeader>
-                      <CardTitle>{cert.certification_title}</CardTitle>
-                      <CardDescription>{cert.issuing_organization}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-gray-600">Obtained: {cert.date_obtained}</p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </section>
-          </AnimatedSection>
-
-          <AnimatedSection>
-            <section className="mb-16">
-              <h3 className="text-2xl font-semibold mb-6 flex items-center text-gray-800">
-                <TrendingUp className="mr-2" />
                 Achievements
               </h3>
               <Card>
                 <CardContent className="pt-6">
                   <ul className="list-disc list-inside">
-                    {data.achievements.map((achievement, index) => (
+                    {data.achievements.awards_honors.map((achievement, index) => (
                       <li key={index} className="text-gray-700 mb-2">{achievement}</li>
                     ))}
                   </ul>
