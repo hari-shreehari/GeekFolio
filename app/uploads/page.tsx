@@ -5,10 +5,10 @@ import { RefreshCw, Upload as UploadIcon, Palette, Globe, Eye, ArrowLeft, ArrowR
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import ColorfulTemplateSelection from "@/components/Templates";
-import { BusinessPortfolioComponent as Template1 } from "@/components/Site/BusinessPortfolio";
-import { ComprehensiveDataAnalystPortfolio as Template2 } from "@/components/Site/SimpleDataAnalystPortfolio";
-import { TechInnovatorPortfolioComponent as Template3 } from "@/components/Site/TechInnovatorPortfolio";
-import { ResumeData } from "@/utils/types";
+import { BusinessPortfolioComponent as Business } from "@/components/Site/Business";
+import { ComprehensiveDataAnalystPortfolio as Creative } from "@/components/Site/Creative";
+import { TechInnovatorPortfolioComponent as Tech } from "@/components/Site/Tech";
+import { PortfolioComponent as Minimal } from "@/components/Site/Minimal";
 
 const steps = [
   { number: 1, title: "Upload Resume", icon: UploadIcon },
@@ -55,59 +55,7 @@ export default function Upload() {
   
           const parsedData = await response.json();
           console.log(parsedData.structured_json);
-          const formattedData = JSON.parse(parsedData.structured_json);
-          const personalInformation = formattedData.personal_information[0];
-          const name = personalInformation.name[0];
-          const phoneNumber = personalInformation.contact_information[0].phone_number[0];
-          const email = personalInformation.contact_information[0].email[0];
-          const githubProfile = personalInformation.github_profile[0];
-          const professionalSummary = personalInformation.objective_summary[0].professional_summary[0];
-  
-          console.log('Name:', name);
-          console.log('Phone Number:', phoneNumber);
-          console.log('Email:', email);
-          console.log('GitHub Profile:', githubProfile);
-          console.log('Professional Summary:', professionalSummary);
-  
-          // Education
-          const education = formattedData.education;
-          console.log('Education:', education);
-  
-          // Experience
-          const experience = formattedData.experience;
-          console.log('Experience:', experience);
-  
-          // Projects
-          const projects = formattedData.projects;
-          console.log('Projects:', projects);
-  
-          // Certifications
-          const certifications = formattedData.certifications;
-          console.log('Certifications:', certifications);
-  
-          // Skills
-          const skills = formattedData.skills;
-          console.log('Technical Skills:', skills.technical_skills);
-          console.log('Soft Skills:', skills.soft_skills);
-  
-          // Achievements
-          const achievements = formattedData.achievements;
-          console.log('Awards & Honors:', achievements.awards_honors);
-          console.log('Scholarships:', achievements.scholarships);
-          console.log('Competitions:', achievements.competitions);
-  
-          // Extracurricular Activities
-          const extracurricularActivities = formattedData.extracurricular_activities;
-          console.log('Clubs & Organizations:', extracurricularActivities.clubs_organizations);
-          console.log('Volunteer Work:', extracurricularActivities.volunteer_work);
-          console.log('Leadership Roles:', extracurricularActivities.leadership_roles);
-  
-          // Languages
-          const languages = formattedData.languages;
-            languages.forEach((language: { language_proficiency: string; level_of_proficiency: string }, index: number) => {
-              console.log(`Language ${index + 1} Proficiency:`, language.language_proficiency);
-              console.log(`Language ${index + 1} Level:`, language.level_of_proficiency);
-            });
+          const formattedData = JSON.parse(parsedData.structured_json);                                             
   
           setResumeData(formattedData);
           setCurrentStep(2);
@@ -124,17 +72,18 @@ export default function Upload() {
     setCurrentStep(3);
   };
 
-  // Ensure the template names match the ones used in the Portfolio component
   const renderTemplate = () => {
     if (!resumeData || !selectedTemplate) return null;
   
     switch (selectedTemplate) {
       case 'Minimalist Pro':
-        return <Template1 data={resumeData} />;
+        return <Minimal data={resumeData} />;
       case 'Creative Portfolio':
-        return <Template2 data={resumeData} />;
+        return <Creative data={resumeData} />;
       case 'Tech Innovator':
-        return <Template3 data={resumeData} />;
+        return <Tech data={resumeData} />;
+      case 'Business Professional':
+        return <Business data={resumeData} />;
       default:
         return <div>No template selected</div>;
     }
@@ -144,7 +93,7 @@ export default function Upload() {
     setIsPreviewMode(true);
   };
 
-  const handlePublish = async () => {
+  const handlePublish = async () => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
     if (!username.trim()) {
       setError('Please enter a username');
       return;
@@ -162,6 +111,7 @@ export default function Upload() {
         template: selectedTemplate,
         portfolioContent,
       };
+      
       console.log("DataStore",dataToStore)
       localStorage.setItem(`portfolio_${username}`, JSON.stringify(dataToStore));
       router.push(`/portfolio/${username}`);
@@ -173,7 +123,7 @@ export default function Upload() {
   const renderStepContent = () => {
     if (isPreviewMode) {
       return (
-        <div className="w-full max-w-6xl">
+        <div className="w-full max-w-[95vw]">
           <div className="bg-white rounded-lg shadow-lg p-8">
             <div className="flex justify-between items-center mb-8">
               <h2 className="text-2xl font-bold">Portfolio Preview</h2>
@@ -182,7 +132,7 @@ export default function Upload() {
                 variant="outline"
                 className="hover:bg-purple-50"
               >
-                <ArrowLeft className="w-4 h-4 mr-2" />
+                <ArrowLeft className="w-4 h-4 mr-2 z-100" />
                 Back to Edit
               </Button>
             </div>
@@ -239,7 +189,7 @@ export default function Upload() {
 
       case 2:
         return (
-          <Card className="w-full max-w-4xl bg-white shadow-lg">
+          <Card className="w-full max-w-4xl bg-white shadow-lg rounded-lg">
             <CardHeader>
               <CardTitle className="flex items-center text-2xl">
                 <Palette className="mr-2 text-purple-600" />
@@ -250,11 +200,12 @@ export default function Upload() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <ColorfulTemplateSelection onSelectTemplate={handleTemplateSelection} />
+              <div className="border border-gray-300 rounded-lg p-4 h-[500px] overflow-y-auto shadow-inner">
+                <ColorfulTemplateSelection onSelectTemplate={handleTemplateSelection} />
+              </div>
             </CardContent>
           </Card>
         );
-
       case 3:
         return (
           <Card className="w-full max-w-xl bg-white shadow-lg">
@@ -329,7 +280,7 @@ export default function Upload() {
       </h1>
 
       {!isPreviewMode && (
-        <div className="flex justify-center mb-12 w-full max-w-4xl">
+        <div className="flex justify-center mb-12 w-[95vh] max-w-4xl">
           <div className="flex items-center w-full justify-between">
             {steps.map((step, index) => (
               <div key={step.number} className="flex items-center">
