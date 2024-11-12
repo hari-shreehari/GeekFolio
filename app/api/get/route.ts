@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const query = `SELECT * FROM portfolios WHERE username = $1 LIMIT 1;`;
+    const query = `SELECT * FROM portfolios WHERE username = $1 ORDER BY id DESC LIMIT 1;`;
     // console.log("quey",query);
     const values = [`${username}`];
     // console.log(values);
