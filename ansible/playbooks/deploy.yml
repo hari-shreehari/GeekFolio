@@ -19,6 +19,7 @@
         docker run
         --network ingress-network
         -e NEXT_PUBLIC_API_URL="{{ next_public_api_url }}"
+        -e NEXT_DATABASE_URL="{{ next_database_url }}"
         --name {{container_name}}
         --restart unless-stopped
         -d "ewr.vultrcr.com/autodeploy/{{image_name}}:{{image_tag}}"
