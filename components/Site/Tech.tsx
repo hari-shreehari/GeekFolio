@@ -216,10 +216,6 @@ export function TechInnovatorPortfolioComponent({ data }: { data: ResumeData }) 
             </AnimatedSection>
           )}
         </main>
-
-        <footer className="ml-auto text-center p-6 text-gray-600 bg-white mt-12">
-          <p>&copy; 2023 {data.personal_information[0].name.join(' ')}. All rights reserved.</p>
-        </footer>
       </div>
     </div>
   )
