@@ -36,87 +36,86 @@ export default function Upload() {
   };
 
   const handleProcessCompletion = async (file: File) => {
-    setAiLoading(true);
-    setError(null);
-
-    const formData = new FormData();
-    formData.append('file', file);
-
-    try {
-      const response = await fetch("/api/extract", {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to process resume');
+      setAiLoading(true);
+      setError(null);
+  
+      const formData = new FormData();
+      formData.append('file', file);
+  
+      try {
+          const response = await fetch("/api/extract", {
+              method: 'POST',
+              body: formData,
+          });
+  
+          if (!response.ok) {
+              throw new Error('Failed to process resume');
+          }
+  
+          const parsedData = await response.json();
+          const formattedData = JSON.parse(parsedData.structured_json);
+  
+          // Personal Information
+          const personalInformation = formattedData.personal_information[0];
+          const name = personalInformation.name[0];
+          const phoneNumber = personalInformation.contact_information[0].phone_number[0];
+          const email = personalInformation.contact_information[0].email[0];
+          const githubProfile = personalInformation.github_profile[0];
+          const professionalSummary = personalInformation.objective_summary[0].professional_summary[0];
+  
+          console.log('Name:', name);
+          console.log('Phone Number:', phoneNumber);
+          console.log('Email:', email);
+          console.log('GitHub Profile:', githubProfile);
+          console.log('Professional Summary:', professionalSummary);
+  
+          // Education
+          const education = formattedData.education;
+          console.log('Education:', education);
+  
+          // Experience
+          const experience = formattedData.experience;
+          console.log('Experience:', experience);
+  
+          // Projects
+          const projects = formattedData.projects;
+          console.log('Projects:', projects);
+  
+          // Certifications
+          const certifications = formattedData.certifications;
+          console.log('Certifications:', certifications);
+  
+          // Skills
+          const skills = formattedData.skills;
+          console.log('Technical Skills:', skills.technical_skills);
+          console.log('Soft Skills:', skills.soft_skills);
+  
+          // Achievements
+          const achievements = formattedData.achievements;
+          console.log('Awards & Honors:', achievements.awards_honors);
+          console.log('Scholarships:', achievements.scholarships);
+          console.log('Competitions:', achievements.competitions);
+  
+          // Extracurricular Activities
+          const extracurricularActivities = formattedData.extracurricular_activities;
+          console.log('Clubs & Organizations:', extracurricularActivities.clubs_organizations);
+          console.log('Volunteer Work:', extracurricularActivities.volunteer_work);
+          console.log('Leadership Roles:', extracurricularActivities.leadership_roles);
+  
+          // Languages
+          const languages = formattedData.languages;
+            languages.forEach((language: { language_proficiency: string; level_of_proficiency: string }, index: number) => {
+              console.log(`Language ${index + 1} Proficiency:`, language.language_proficiency);
+              console.log(`Language ${index + 1} Level:`, language.level_of_proficiency);
+            });
+  
+          setResumeData(formattedData);
+          setCurrentStep(2);
+      } catch (err) {
+          setError('Failed to process the resume. Please try again.');
+      } finally {
+          setAiLoading(false);
       }
-
-      const parsedData = await response.json();
-      const formattedData: ResumeData = JSON.parse(parsedData.structured_json);
-
-      // Personal Information
-      console.log('Formatted Data:', formattedData);
-      const personalInformation = formattedData.personal_information[0];
-      const name = personalInformation.name[0];
-      const phoneNumber = personalInformation.contact_information[0].phone_number[0];
-      const email = personalInformation.contact_information[0].email[0];
-      const githubProfile = personalInformation.github_profile[0];
-      const professionalSummary = personalInformation.objective_summary[0].professional_summary[0];
-
-      console.log('Name:', name);
-      console.log('Phone Number:', phoneNumber);
-      console.log('Email:', email);
-      console.log('GitHub Profile:', githubProfile);
-      console.log('Professional Summary:', professionalSummary);
-
-      // Education
-      const education = formattedData.education;
-      console.log('Education:', education);
-
-      // Experience
-      const experience = formattedData.experience;
-      console.log('Experience:', experience);
-
-      // Projects
-      const projects = formattedData.projects;
-      console.log('Projects:', projects);
-
-      // Certifications
-      const certifications = formattedData.certifications;
-      console.log('Certifications:', certifications);
-
-      // Skills
-      const skills = formattedData.skills;
-      console.log('Technical Skills:', skills.technical_skills);
-      console.log('Soft Skills:', skills.soft_skills);
-
-      // Achievements
-      const achievements = formattedData.achievements;
-      console.log('Awards & Honors:', achievements.awards_honors);
-      console.log('Scholarships:', achievements.scholarships);
-      console.log('Competitions:', achievements.competitions);
-
-      // Extracurricular Activities
-      const extracurricularActivities = formattedData.extracurricular_activities;
-      console.log('Clubs & Organizations:', extracurricularActivities.clubs_organizations);
-      console.log('Volunteer Work:', extracurricularActivities.volunteer_work);
-      console.log('Leadership Roles:', extracurricularActivities.leadership_roles);
-
-      // Languages
-      const languages = formattedData.languages;
-      languages.forEach((language, index) => {
-        console.log(`Language ${index + 1} Proficiency:`, language.language_proficiency);
-        console.log(`Language ${index + 1} Level:`, language.level_of_proficiency);
-      });
-
-      setResumeData(formattedData);
-      setCurrentStep(2);
-    } catch (err) {
-      setError('Failed to process the resume. Please try again.');
-    } finally {
-      setAiLoading(false);
-    }
   };
 
   const handleTemplateSelection = (templateName: string) => {
