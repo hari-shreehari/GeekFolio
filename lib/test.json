@@ -1,167 +1,89 @@
 {
     "personal_information": [
         {
-            "name": [
-                "AJAY B"
-            ],
+            "name": ["AJAY B"],
             "contact_information": [
                 {
-                    "phone_number": [
-                        "+91 8122750426"
-                    ],
-                    "email": [
-                        "ajaybalajiprasad002@gmail.com"
-                    ],
-                    "address": [
-                        ""
-                    ]
+                    "phone_number": ["+91 8122750426"],
+                    "email": ["ajaybalajiprasad002@gmail.com"],
+                    "address": [""]
                 }
             ],
-            "linkedin_profile": [
-                ""
-            ],
-            "github_profile": [
-                "github.com/ajaybalajiprasad"
-            ],
+            "linkedin_profile": [""],
+            "github_profile": ["github.com/ajaybalajiprasad"],
             "objective_summary": [
                 {
-                    "career_objective": [
-                        ""
-                    ],
-                    "professional_summary": [
-                        "COMPETITIVE CODER"
-                    ]
+                    "career_objective": [""],
+                    "professional_summary": ["COMPETITIVE CODER"]
                 }
             ]
         }
     ],
     "education": [
         {
-            "degree": [
-                "Bachelor of Electrical and Communication Engineering"
-            ],
-            "major_field_of_study": [
-                ""
-            ],
-            "university_institution_name": [
-                "CHENNAI INSTITUTE OF TECHNOLOGY AND APPLIED RESEARCH"
-            ],
-            "graduation_date": [
-                "2027"
-            ],
-            "cgpa_grades": [
-                ""
-            ]
+            "degree": ["Bachelor of Electrical and Communication Engineering"],
+            "major_field_of_study": [""],
+            "university_institution_name": ["CHENNAI INSTITUTE OF TECHNOLOGY AND APPLIED RESEARCH"],
+            "graduation_date": ["2027"],
+            "cgpa_grades": [""]
         },
         {
-            "degree": [
-                ""
-            ],
-            "major_field_of_study": [
-                ""
-            ],
-            "university_institution_name": [
-                "ST.ANNS MAT HR SEC SCHOOL"
-            ],
-            "graduation_date": [
-                "2023"
-            ],
-            "cgpa_grades": [
-                ""
-            ]
+            "degree": [""],
+            "major_field_of_study": [""],
+            "university_institution_name": ["ST.ANNS MAT HR SEC SCHOOL"],
+            "graduation_date": ["2023"],
+            "cgpa_grades": [""]
         }
     ],
     "experience": [
         {
-            "job_title": [
-                "FOUNDER"
-            ],
-            "company_name": [
-                "PREPEX"
-            ],
+            "job_title": ["FOUNDER"],
+            "company_name": ["PREPEX"],
             "location": {
-                "city": [
-                    ""
-                ],
-                "state": [
-                    ""
-                ]
+                "city": [""],
+                "state": [""]
             },
             "dates_of_employment": {
-                "start_date": [
-                    "2024"
-                ],
-                "end_date": [
-                    "Present"
-                ]
+                "start_date": ["2024"],
+                "end_date": ["Present"]
             },
             "responsibilities_achievements": [
-                "Developing a Personalized Student Preparation App\nCreating a Web App with NEXT JS\nAcquiring Team Experience\nMastering Various Tech Stacks"
+                "Startup company\nDeveloping a Personalized Student Preparation App\nCreating a Web App with NEXT JS\nAcquiring Team Experience\nMastering Various Tech Stacks"
             ]
         },
         {
-            "job_title": [
-                "BACKEND DEVELOPER"
-            ],
-            "company_name": [
-                "BITSPACE"
-            ],
+            "job_title": ["BACKEND DEVELOPER"],
+            "company_name": ["BITSPACE"],
             "location": {
-                "city": [
-                    ""
-                ],
-                "state": [
-                    ""
-                ]
+                "city": [""],
+                "state": [""]
             },
             "dates_of_employment": {
-                "start_date": [
-                    "2024 Feb"
-                ],
-                "end_date": [
-                    "Mar"
-                ]
+                "start_date": ["2024 Feb"],
+                "end_date": ["Mar"]
             },
             "responsibilities_achievements": [
-                "Created a website for a College Event\nWorked with seniors for the backend team\nAcquired experience in various tech stacks"
+                "Llama Index Open Source Organization\nCreated a website for a College Event\nWorked with seniors for the backend team\nAcquired experience in various tech stacks"
             ]
         }
     ],
     "projects": [
         {
-            "project_title": [
-                ""
-            ],
-            "technologies_used": [
-                ""
-            ],
-            "project_description": [
-                ""
-            ],
+            "project_title": [""],
+            "technologies_used": [""],
+            "project_description": [""],
             "duration": {
-                "start_date": [
-                    ""
-                ],
-                "end_date": [
-                    ""
-                ]
+                "start_date": [""],
+                "end_date": [""]
             },
-            "project_links": [
-                ""
-            ]
+            "project_links": [""]
         }
     ],
     "certifications": [
         {
-            "certification_title": [
-                ""
-            ],
-            "issuing_organization": [
-                ""
-            ],
-            "date_obtained": [
-                ""
-            ]
+            "certification_title": [""],
+            "issuing_organization": [""],
+            "date_obtained": [""]
         }
     ],
     "skills": {
@@ -175,40 +97,26 @@
             "Linux",
             "Arduino"
         ],
-        "soft_skills": [
-            ""
-        ]
+        "soft_skills": [""]
     },
     "achievements": {
         "awards_honors": [
             "Winner of Makeathon 2023 (Prize Worth 50,000)"
         ],
-        "scholarships": [
-            ""
-        ],
+        "scholarships": [""],
         "competitions": [
             "Solved over 330+ problems on LeetCode, With highest contest rating of 1791"
         ]
     },
     "extracurricular_activities": {
-        "clubs_organizations": [
-            "Llama Index Open Source Organization"
-        ],
-        "volunteer_work": [
-            ""
-        ],
-        "leadership_roles": [
-            ""
-        ]
+        "clubs_organizations": [""],
+        "volunteer_work": [""],
+        "leadership_roles": [""]
     },
     "languages": [
         {
-            "language_proficiency": [
-                ""
-            ],
-            "level_of_proficiency": [
-                ""
-            ]
+            "language_proficiency": [""],
+            "level_of_proficiency": [""]
         }
     ]
 }

@@ -3,174 +3,147 @@
 import { ResumeData } from './types';
 
 export const mockData: ResumeData = {
-    personal_information: {
-        name: "John Doe",
-        title: "Full Stack Developer",
-        avatar: "/placeholder-avatar.jpg",
-        contact_information: {
-            email: "john.doe@example.com",
-            phone_number: "+1 (555) 123-4567",
-            address: "San Francisco, CA"
-        },
-        linkedin_profile: "https://linkedin.com/in/johndoe",
-        github_profile: "https://github.com/johndoe",
-        objective_summary: {
-            career_objective: "Seeking to leverage my technical expertise in a challenging role",
-            professional_summary: "Experienced full-stack developer with 5+ years of experience in building scalable web applications"
+    personal_information: [
+        {
+            name: ["Jan Doe"],
+            contact_information: [
+                {
+                    phone_number: ["+1 555-123-4567"],
+                    email: ["jandoe@example.com"],
+                    address: ["123 Main Street, Anytown, USA"]
+                }
+            ],
+            linkedin_profile: ["https://linkedin.com/in/jandoe"],
+            github_profile: ["https://github.com/jandoe"],
+            objective_summary: [
+                {
+                    career_objective: ["To secure a challenging position in a reputable organization to expand my learnings, knowledge, and skills."],
+                    professional_summary: ["Dedicated software developer with 3 years of experience in building scalable web applications."]
+                }
+            ]
         }
-    },
+    ],
     education: [
         {
-            degree: "Master of Science",
-            major_field_of_study: "Computer Science",
-            university_institution_name: "Stanford University",
-            graduation_date: "2020",
-            cgpa_grades: "3.8/4.0"
+            degree: ["Bachelor of Science in Computer Science"],
+            major_field_of_study: ["Computer Science"],
+            university_institution_name: ["State University"],
+            graduation_date: ["2023"],
+            cgpa_grades: ["3.8"]
         },
         {
-            degree: "Bachelor of Engineering",
-            major_field_of_study: "Software Engineering",
-            university_institution_name: "University of California",
-            graduation_date: "2018",
-            cgpa_grades: "3.9/4.0"
+            degree: [""],
+            major_field_of_study: [""],
+            university_institution_name: ["Central High School"],
+            graduation_date: ["2019"],
+            cgpa_grades: [""]
         }
     ],
     experience: [
         {
-            job_title: "Senior Software Engineer",
-            company_name: "Tech Corp",
+            job_title: ["Software Engineer"],
+            company_name: ["Tech Solutions Inc."],
             location: {
-                city: "San Francisco",
-                state: "CA"
+                city: ["San Francisco"],
+                state: ["CA"]
             },
             dates_of_employment: {
-                start_date: "2020",
-                end_date: "Present"
+                start_date: ["June 2023"],
+                end_date: ["Present"]
             },
             responsibilities_achievements: [
-                "Led development of microservices architecture",
-                "Improved system performance by 40%",
-                "Mentored junior developers",
-                "Implemented CI/CD pipeline"
+                "Developed and maintained web applications using React and Node.js",
+                "Collaborated with cross-functional teams to define project requirements",
+                "Implemented RESTful APIs to enhance application functionality",
+                "Optimized application performance, reducing load times by 30%"
             ]
         },
         {
-            job_title: "Software Engineer",
-            company_name: "StartUp Inc",
+            job_title: ["Intern Developer"],
+            company_name: ["Innovatech"],
             location: {
-                city: "San Jose",
-                state: "CA"
+                city: ["New York"],
+                state: ["NY"]
             },
             dates_of_employment: {
-                start_date: "2018",
-                end_date: "2020"
+                start_date: ["June 2022"],
+                end_date: ["August 2022"]
             },
             responsibilities_achievements: [
-                "Developed full-stack web applications",
-                "Implemented RESTful APIs",
-                "Reduced loading time by 50%",
-                "Collaborated with cross-functional teams"
+                "Assisted in developing front-end features using Angular",
+                "Conducted testing and debugging of applications",
+                "Participated in code reviews and team meetings"
             ]
         }
     ],
     projects: [
         {
-            project_title: "E-commerce Platform",
-            technologies_used: ["React", "Node.js", "MongoDB", "AWS"],
-            project_description: "Built a scalable e-commerce platform with modern technologies",
+            project_title: ["Personal Portfolio Website"],
+            technologies_used: ["React", "TypeScript", "CSS"],
+            project_description: ["A personal website to showcase projects, blogs, and resume."],
             duration: {
-                start_date: "2021",
-                end_date: "2022"
+                start_date: ["January 2023"],
+                end_date: ["February 2023"]
             },
-            project_links: "https://github.com/johndoe/ecommerce"
-        },
-        {
-            project_title: "AI Chat Application",
-            technologies_used: ["Python", "TensorFlow", "Flask", "React"],
-            project_description: "Developed an AI-powered chat application with natural language processing",
-            duration: {
-                start_date: "2020",
-                end_date: "2021"
-            },
-            project_links: "https://github.com/johndoe/ai-chat"
+            project_links: ["https://jandoe.com"]
         }
     ],
     certifications: [
         {
-            certification_title: "AWS Certified Solutions Architect",
-            issuing_organization: "Amazon Web Services",
-            date_obtained: "2021"
-        },
-        {
-            certification_title: "Google Cloud Professional Developer",
-            issuing_organization: "Google",
-            date_obtained: "2020"
+            certification_title: ["Certified JavaScript Developer"],
+            issuing_organization: ["Tech Certification Board"],
+            date_obtained: ["March 2023"]
         }
     ],
     skills: {
         technical_skills: [
-            "JavaScript",
+            "JavaScript: Node, React, Express",
             "TypeScript",
-            "React",
-            "Node.js",
-            "Python",
+            "Python: Django",
+            "PostgreSQL",
+            "Git",
             "AWS",
             "Docker",
-            "Kubernetes",
-            "MongoDB",
-            "PostgreSQL",
-            "GraphQL",
-            "REST APIs"
+            "Linux"
         ],
         soft_skills: [
-            "Leadership",
-            "Problem Solving",
-            "Communication",
+            "Problem-solving",
             "Team Collaboration",
-            "Project Management",
-            "Agile Methodologies"
+            "Effective Communication",
+            "Time Management"
         ]
     },
     achievements: {
         awards_honors: [
-            "Employee of the Year 2022",
-            "Best Innovation Award 2021"
+            "Employee of the Month, Tech Solutions Inc., July 2023"
         ],
         scholarships: [
-            "Merit Scholarship 2018-2020",
-            "Academic Excellence Award"
+            "Dean's List Scholarship, State University"
         ],
         competitions: [
-            "First Place in Hackathon 2021",
-            "Winner of Code Challenge 2020"
+            "1st Place in Hackathon 2022"
         ]
     },
     extracurricular_activities: {
         clubs_organizations: [
-            "Tech Meetup Organizer",
-            "Open Source Contributor"
+            "Computer Science Club",
+            "Volunteer Coding Instructor"
         ],
         volunteer_work: [
-            "Code Mentor for underprivileged students",
-            "Tech Workshop Instructor"
+            "Teaching coding to underprivileged youth"
         ],
         leadership_roles: [
-            "Team Lead - Open Source Project",
-            "Technical Community Leader"
+            "President, Computer Science Club"
         ]
     },
     languages: [
         {
-            language_proficiency: "English",
-            level_of_proficiency: "Native"
+            language_proficiency: ["English"],
+            level_of_proficiency: ["Native"]
         },
         {
-            language_proficiency: "Spanish",
-            level_of_proficiency: "Intermediate"
-        },
-        {
-            language_proficiency: "Mandarin",
-            level_of_proficiency: "Basic"
+            language_proficiency: ["Spanish"],
+            level_of_proficiency: ["Intermediate"]
         }
     ]
 };

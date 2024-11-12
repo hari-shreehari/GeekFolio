@@ -2,11 +2,19 @@ import { NextResponse } from 'next/server'
 
 export async function POST(request: Request) {
   const formData = await request.formData()
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+  if (!apiUrl) {
+    return NextResponse.json(
+      { error: 'API URL is not defined' },
+      { status: 500 }
+    );
+  }
+
+  console.log('apiUrl:', apiUrl);
   
   try {
-    // const response = await fetch("http://139.84.156.72:8000/extract", {
-    const response = await fetch("http://0.0.0.0:8000/extract", {
-
+      const response = await fetch(apiUrl, {
       method: 'POST',
       body: formData,
     })

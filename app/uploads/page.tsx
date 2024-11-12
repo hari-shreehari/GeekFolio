@@ -9,6 +9,7 @@ import { BusinessPortfolioComponent as Template1 } from "@/components/Site/Busin
 import { ComprehensiveDataAnalystPortfolio as Template2 } from "@/components/Site/SimpleDataAnalystPortfolio";
 import { TechInnovatorPortfolioComponent as Template3 } from "@/components/Site/TechInnovatorPortfolio";
 import { ResumeData } from "@/utils/types";
+
 const steps = [
   { number: 1, title: "Upload Resume", icon: UploadIcon },
   { number: 2, title: "Choose Template", icon: Palette },
@@ -53,9 +54,8 @@ export default function Upload() {
           }
   
           const parsedData = await response.json();
+          console.log(parsedData.structured_json);
           const formattedData = JSON.parse(parsedData.structured_json);
-  
-          // Personal Information
           const personalInformation = formattedData.personal_information[0];
           const name = personalInformation.name[0];
           const phoneNumber = personalInformation.contact_information[0].phone_number[0];
@@ -120,19 +120,20 @@ export default function Upload() {
 
   const handleTemplateSelection = (templateName: string) => {
     setSelectedTemplate(templateName);
-    console.log(resumeData)
+    console.log("handleTemplateSelection",resumeData)
     setCurrentStep(3);
   };
 
+  // Ensure the template names match the ones used in the Portfolio component
   const renderTemplate = () => {
     if (!resumeData || !selectedTemplate) return null;
-
+  
     switch (selectedTemplate) {
-      case 'BusinessPortfolioComponent':
+      case 'Minimalist Pro':
         return <Template1 data={resumeData} />;
-      case 'ComprehensiveDataAnalystPortfolio':
+      case 'Creative Portfolio':
         return <Template2 data={resumeData} />;
-      case 'TechInnovatorPortfolioComponent':
+      case 'Tech Innovator':
         return <Template3 data={resumeData} />;
       default:
         return <div>No template selected</div>;
@@ -161,6 +162,7 @@ export default function Upload() {
         template: selectedTemplate,
         portfolioContent,
       };
+      console.log("DataStore",dataToStore)
       localStorage.setItem(`portfolio_${username}`, JSON.stringify(dataToStore));
       router.push(`/portfolio/${username}`);
     } catch (err) {
@@ -200,7 +202,7 @@ export default function Upload() {
                 Upload Your Resume
               </CardTitle>
               <CardDescription>
-                Upload your resume in PDF, DOC, or DOCX format
+                Upload your resume in PDF, DOCX or IMAGE format
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -210,7 +212,7 @@ export default function Upload() {
                   id="resume-upload"
                   className="sr-only"
                   onChange={handleFileChange}
-                  accept=".pdf,.doc,.docx"
+                  accept=".pdf,.docx,.png,.jpg,.jpeg"
                 />
                 <label
                   htmlFor="resume-upload"
@@ -221,7 +223,7 @@ export default function Upload() {
                     {file ? file.name : "Drop your resume here or click to browse"}
                   </span>
                   <span className="text-sm text-gray-500 mt-2">
-                    Supported formats: PDF, DOC, DOCX
+                    Supported formats: PDF, IMAGE, DOCX
                   </span>
                 </label>
               </div>

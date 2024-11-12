@@ -1,7 +1,4 @@
-// components/ColorfulTemplateSelection.tsx
-'use client'
-
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
@@ -24,52 +21,17 @@ type Template = {
 };
 
 const templates: Template[] = [
-  { 
-    id: 1, 
-    name: "Minimalist Pro", 
-    category: "Minimal", 
-    description: "Clean and modern design focusing on simplicity and content. Perfect for professionals who want to highlight their work without distractions.",
-    color: "bg-gray-50",
-    accentColor: "bg-gray-600",
-    textColor: "text-gray-800",
-    component: PortfolioComponent
-  },
-  { 
-    id: 2, 
-    name: "Tech Innovator", 
-    category: "Tech", 
-    description: "Modern and tech-focused design with a dark mode option. Ideal for developers, IT professionals, and tech startups.",
-    color: "bg-green-50",
-    accentColor: "bg-green-600",
-    textColor: "text-green-800",
-    component: TechInnovatorPortfolioComponent
-  },
-  { 
-    id: 3, 
-    name: "Creative Portfolio", 
-    category: "Creative", 
-    description: "Vibrant and expressive design that stands out. Ideal for artists, designers, and creatives.",
-    color: "bg-purple-50",
-    accentColor: "bg-purple-600",
-    textColor: "text-purple-800",
-    component: ComprehensiveDataAnalystPortfolio
-  },
-  { 
-    id: 4, 
-    name: "Business Professional", 
-    category: "Business", 
-    description: "Sleek and professional layout tailored for business executives and corporate professionals.",
-    color: "bg-blue-50",
-    accentColor: "bg-blue-600",
-    textColor: "text-blue-800",
-    component: BusinessPortfolioComponent
-  }
+  { id: 1, name: "Minimalist Pro", category: "Minimal", description: "Clean and modern design...", color: "bg-gray-50", accentColor: "bg-gray-600", textColor: "text-gray-800", component: PortfolioComponent },
+  { id: 2, name: "Tech Innovator", category: "Tech", description: "Modern and tech-focused design...", color: "bg-green-50", accentColor: "bg-green-600", textColor: "text-green-800", component: TechInnovatorPortfolioComponent },
+  { id: 3, name: "Creative Portfolio", category: "Creative", description: "Vibrant and expressive design...", color: "bg-purple-50", accentColor: "bg-purple-600", textColor: "text-purple-800", component: ComprehensiveDataAnalystPortfolio },
+  { id: 4, name: "Business Professional", category: "Business", description: "Sleek and professional layout...", color: "bg-blue-50", accentColor: "bg-blue-600", textColor: "text-blue-800", component: BusinessPortfolioComponent }
 ];
 
 const ColorfulTemplateSelection = () => {
   const [searchTerm, setSearchTerm] = useState<string>("")
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(null)
+  const [resumeData, setResumeData] = useState<ResumeData>(mockData) // Set your actual resume data here
 
   useEffect(() => {
     if (isModalOpen) {
@@ -94,18 +56,12 @@ const ColorfulTemplateSelection = () => {
 
   const handleSelectTemplate = (template: Template) => {
     setSelectedTemplate(template)
-    // Handle template selection logic here
   }
 
   const filteredTemplates = templates.filter(template => 
     template.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     template.description.toLowerCase().includes(searchTerm.toLowerCase())
   )
-
-  const renderTemplateComponent = (template: Template) => {
-    const TemplateComponent = template.component;
-    return <TemplateComponent data={mockData} />;
-  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -143,7 +99,8 @@ const ColorfulTemplateSelection = () => {
                 left: 0,
                 width: '400%'
               }}>
-                {renderTemplateComponent(template)}
+                {/* Render template preview */}
+                {React.createElement(template.component, { data: resumeData })}
               </div>
             </div>
             <div className={`w-full md:w-1/2 p-6 flex flex-col justify-between ${index % 2 === 0 ? 'md:pl-12' : 'md:pr-12'}`}>
@@ -172,10 +129,6 @@ const ColorfulTemplateSelection = () => {
         ))}
       </div>
 
-      {filteredTemplates.length === 0 && (
-        <p className="text-center text-gray-500 mt-8">No templates found. Try adjusting your search.</p>
-      )}
-
       {isModalOpen && selectedTemplate && (
         <div 
           className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50"
@@ -194,7 +147,8 @@ const ColorfulTemplateSelection = () => {
 
             <h2 className="text-2xl font-bold mb-4">{selectedTemplate.name}</h2>
             <div className="overflow-auto">
-              {renderTemplateComponent(selectedTemplate)}
+              {/* Render selected template with resume data */}
+              {React.createElement(selectedTemplate.component, { data: resumeData })}
             </div>
 
             <div className="mt-4 flex justify-center">

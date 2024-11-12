@@ -34,7 +34,7 @@ export function ComprehensiveDataAnalystPortfolio({ data }: { data: ResumeData }
     <div className="min-h-screen bg-yellow-50">
       <header className="bg-yellow-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-red-900">{data.personal_information.name}</h1>
+          <h1 className="text-3xl font-bold text-red-900">{data.personal_information[0].name}</h1>
           <nav>
             {['about', 'experience', 'projects', 'education', 'achievements'].map((tab) => (
               <Button
@@ -57,34 +57,34 @@ export function ComprehensiveDataAnalystPortfolio({ data }: { data: ResumeData }
               <CardContent className="pt-6">
                 <div className="flex flex-col items-center">
                   <Avatar className="w-32 h-32 mb-4 border-4 border-red-200">
-                    <AvatarImage src={data.personal_information.avatar || "/placeholder.svg"} alt={data.personal_information.name} />
-                    <AvatarFallback>{data.personal_information.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                    <AvatarImage src={data.personal_information[0].name[0] || "/placeholder.svg"} alt={String(data.personal_information[0].name)} />
+                    <AvatarFallback>{data.personal_information[0].name.map(n => n[0]).join('')}</AvatarFallback>
                   </Avatar>
-                  <h2 className="text-2xl font-bold text-center mb-1">{data.personal_information.name}</h2>
+                  <h2 className="text-2xl font-bold text-center mb-1">{data.personal_information[0].name}</h2>
                   <p className="text-sm text-red-700 text-center mb-4">
-                    {data.personal_information.title || data.personal_information.objective_summary.career_objective}
+                    {data.personal_information[0].objective_summary[0].professional_summary || data.personal_information[0].objective_summary[0].career_objective}
                   </p>
                   <div className="flex justify-center space-x-2 mb-6">
                     <Button variant="outline" size="icon" asChild>
-                      <a href={`mailto:${data.personal_information.contact_information.email}`}>
+                      <a href={`mailto:${data.personal_information[0].contact_information[0].email}`}>
                         <Mail size={18} />
                       </a>
                     </Button>
                     <Button variant="outline" size="icon" asChild>
-                      <a href={data.personal_information.linkedin_profile} target="_blank" rel="noopener noreferrer">
+                      <a href={data.personal_information[0].linkedin_profile[0]} target="_blank" rel="noopener noreferrer">
                         <Linkedin size={18} />
                       </a>
                     </Button>
                     <Button variant="outline" size="icon" asChild>
-                      <a href={data.personal_information.github_profile} target="_blank" rel="noopener noreferrer">
+                      <a href={data.personal_information[0].github_profile[0]} target="_blank" rel="noopener noreferrer">
                         <Github size={18} />
                       </a>
                     </Button>
                   </div>
                 </div>
                 <div className="text-center">
-                  <p className="text-sm text-red-900">{data.personal_information.contact_information.address}</p>
-                  <p className="text-sm text-red-800">{data.personal_information.contact_information.phone_number}</p>
+                  <p className="text-sm text-red-900">{data.personal_information[0].contact_information[0].address}</p>
+                  <p className="text-sm text-red-800">{data.personal_information[0].contact_information[0].phone_number}</p>
                 </div>
               </CardContent>
             </Card>
@@ -102,9 +102,9 @@ export function ComprehensiveDataAnalystPortfolio({ data }: { data: ResumeData }
                   </CardHeader>
                   <CardContent>
                     <h3 className="font-semibold text-red-800 mb-2">Career Objective</h3>
-                    <p className="text-red-800 mb-4">{data.personal_information.objective_summary.career_objective}</p>
+                    <p className="text-red-800 mb-4">{data.personal_information[0].objective_summary[0].career_objective}</p>
                     <h3 className="font-semibold text-red-800 mb-2">Professional Summary</h3>
-                    <p className="text-red-800">{data.personal_information.objective_summary.professional_summary}</p>
+                    <p className="text-red-800">{data.personal_information[0].objective_summary[0].professional_summary}</p>
                   </CardContent>
                 </Card>
               )}
@@ -159,7 +159,7 @@ export function ComprehensiveDataAnalystPortfolio({ data }: { data: ResumeData }
                         <p className="text-red-800 mt-2">{project.project_description}</p>
                         {project.project_links && (
                           <a 
-                            href={project.project_links} 
+                            href={String(project.project_links)} 
                             className="text-red-600 hover:text-red-800 mt-2 inline-block"
                             target="_blank"
                             rel="noopener noreferrer"
