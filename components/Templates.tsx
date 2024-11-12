@@ -4,10 +4,10 @@ import { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { PortfolioComponent } from '@/components/Site/portfolio'
-import { TechInnovatorPortfolioComponent } from './Site/TechInnovatorPortfolio'
-import { ComprehensiveDataAnalystPortfolio } from './Site/SimpleDataAnalystPortfolio'
-import { BusinessPortfolioComponent } from './Site/BusinessPortfolio'
+import { PortfolioComponent } from '@/components/Site/Minimal'
+import { TechInnovatorPortfolioComponent } from './Site/Tech'
+import { ComprehensiveDataAnalystPortfolio } from './Site/Creative'
+import { BusinessPortfolioComponent } from './Site/Business'
 import { ResumeData } from '@/utils/types'
 import { mockData } from '@/utils/mockData'
 
@@ -175,18 +175,18 @@ const ColorfulTemplateSelection: React.FC<TemplateSelectorProps> = ({ onSelectTe
           onClick={closeModal}
         >
           <div 
-            className="relative bg-white rounded-lg shadow-lg p-6 max-h-[80vh] w-[90vw] overflow-y-auto"
+            className="relative bg-white rounded-lg shadow-xl p-6 max-h-[95vh] w-[95vw] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <button 
               onClick={closeModal}
-              className="absolute top-4 right-4 text-2xl text-gray-600 hover:text-gray-900"
+              className="absolute top-4 right-4 z-[60] text-2xl text-gray-600 hover:text-gray-900"
             >
               &times;
             </button>
 
             <h2 className="text-2xl font-bold mb-4">{selectedTemplate.name}</h2>
-            <div className="overflow-auto">
+            <div className="overflow-auto h-[80vh]">
               {renderTemplateComponent(selectedTemplate)}
             </div>
 

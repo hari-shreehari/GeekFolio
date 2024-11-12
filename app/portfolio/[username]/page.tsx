@@ -4,9 +4,10 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { ResumeData } from '@/utils/types';
-import { BusinessPortfolioComponent as Template1 } from '@/components/Site/BusinessPortfolio';
-import { ComprehensiveDataAnalystPortfolio as Template2 } from '@/components/Site/SimpleDataAnalystPortfolio';
-import { TechInnovatorPortfolioComponent as Template3 } from '@/components/Site/TechInnovatorPortfolio';
+import { BusinessPortfolioComponent as Business } from "@/components/Site/Business";
+import { ComprehensiveDataAnalystPortfolio as Creative } from "@/components/Site/Creative";
+import { TechInnovatorPortfolioComponent as Tech } from "@/components/Site/Tech";
+import { PortfolioComponent as Minimal } from "@/components/Site/Minimal";
 
 export default function Portfolio() {
   const router = useRouter();
@@ -45,11 +46,13 @@ export default function Portfolio() {
     console.log('Rendering Template:', selectedTemplate); // Debugging log
     switch (selectedTemplate) {
       case 'Minimalist Pro':
-        return <Template1 data={resumeData} />;
+        return <Minimal data={resumeData} />;
       case 'Creative Portfolio':
-        return <Template2 data={resumeData} />;
+        return <Creative data={resumeData} />;
       case 'Tech Innovator':
-        return <Template3 data={resumeData} />;
+        return <Tech data={resumeData} />;
+      case 'Business Professional':
+        return <Business data={resumeData} />;
       default:
         return (
           <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-3xl">
@@ -61,8 +64,8 @@ export default function Portfolio() {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen flex justify-center items-center py-10">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
+    <div className="bg-gray-100 min-h-screen w-full">
+      <div className="bg-white rounded-lg shadow-lg w-full h-full">
         {renderTemplate()}
       </div>
     </div>
