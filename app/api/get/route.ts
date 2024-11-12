@@ -1,32 +1,41 @@
-// /pages/api/getPortfolio.ts
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import pool from '@/lib/db';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'GET') {
-    const { username } = req.query;
+export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+  const username = searchParams.get('username');
 
-    if (!username || typeof username !== 'string') {
-      return res.status(400).json({ message: 'Username is required' });
+  if (!username) {
+    return NextResponse.json(
+      { message: 'Username is required' },
+      { status: 400 }
+    );
+  }
+
+  try {
+    const query = `SELECT * FROM portfolios WHERE username = $1 LIMIT 1;`;
+    // console.log("quey",query);
+    const values = [`${username}`];
+    // console.log(values);
+    const result = await pool.query(query, values);
+    // console.log(result);
+
+    if (result.rows.length === 0) {
+      return NextResponse.json(
+        { message: 'Portfolio not found' },
+        { status: 404 }
+      );
     }
 
-    try {
-      const query = `SELECT * FROM portfolios WHERE username = $1 LIMIT 1;`;
-      const values = [username];
-      const result = await pool.query(query, values);
-
-      if (result.rows.length === 0) {
-        return res.status(404).json({ message: 'Portfolio not found' });
-      }
-
-      const portfolioData = result.rows[0];
-      return res.status(200).json(portfolioData);
-    } catch (error) {
-      console.error('Database error:', error);
-      return res.status(500).json({ message: 'Failed to retrieve portfolio' });
-    }
-  } else {
-    res.setHeader('Allow', ['GET']);
-    return res.status(405).end(`Method ${req.method} Not Allowed`);
+    const portfolioData = result.rows[0];
+    // console.log(portfolioData);
+    return NextResponse.json(portfolioData);
+    
+  } catch (error) {
+    console.error('Database error:', error);
+    return NextResponse.json(
+      { message: 'Failed to retrieve portfolio' },
+      { status: 500 }
+    );
   }
 }

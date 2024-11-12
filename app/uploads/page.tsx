@@ -93,31 +93,44 @@ export default function Upload() {
     setIsPreviewMode(true);
   };
 
-  const handlePublish = async () => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+  const handlePublish = async () => {
     if (!username.trim()) {
       setError('Please enter a username');
       return;
     }
-
+  
     if (!resumeData || !selectedTemplate) {
       setError('Missing required data. Please complete all steps.');
       return;
     }
-
+  
     try {
       const portfolioContent = renderTemplate();
-      const dataToStore = {
-        resumeData,
-        template: selectedTemplate,
-        portfolioContent,
-      };
       
-      console.log("DataStore",dataToStore)
-      localStorage.setItem(`portfolio_${username}`, JSON.stringify(dataToStore));
+      const response = await fetch('/api/publish', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          resumeData,
+          template: selectedTemplate,
+          portfolioContent,
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to publish portfolio');
+      }
+  
+      const data = await response.json();
+      console.log('Portfolio published successfully:', data);
       router.push(`/portfolio/${username}`);
-    } catch (err) {
+    } catch (error) {
+      console.error('Publish error:', error);
       setError('Failed to publish portfolio. Please try again.');
-    }
+    } 
   };
 
   const renderStepContent = () => {

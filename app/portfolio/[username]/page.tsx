@@ -16,19 +16,44 @@ export default function Portfolio() {
   const [resumeData, setResumeData] = useState<ResumeData | null>(null);
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
 
+  // useEffect(() => {
+  //   if (username) {
+  //     const storedData = localStorage.getItem(`portfolio_${username}`);
+  //     if (storedData) {
+  //       try {
+  //         const parsedData = JSON.parse(storedData);
+  //         setResumeData(parsedData.resumeData);
+  //         setSelectedTemplate(parsedData.template);
+  //       } catch (error) {
+  //         console.error('Failed to parse resume data from localStorage:', error);
+  //       }
+  //     }
+  //   }
+  // }, [username]);
+
   useEffect(() => {
-    if (username) {
-      const storedData = localStorage.getItem(`portfolio_${username}`);
-      if (storedData) {
-        try {
-          const parsedData = JSON.parse(storedData);
-          setResumeData(parsedData.resumeData);
-          setSelectedTemplate(parsedData.template);
-        } catch (error) {
-          console.error('Failed to parse resume data from localStorage:', error);
+    const fetchPortfolioData = async () => {
+      if (!username) return;
+  
+      try {
+        const response = await fetch(`/api/get?username=${username}`);
+        
+        if (response.ok) {
+          const dbData = await response.json();
+  
+          setResumeData(dbData.resume_data);
+          setSelectedTemplate(dbData.template);
+        } else if (response.status === 404) {
+          console.log('No portfolio found for this user');
+        } else {
+          console.error('Failed to fetch portfolio from database');
         }
+      } catch (error) {
+        console.error('Error fetching portfolio from database:', error);
       }
-    }
+    };
+  
+    fetchPortfolioData();
   }, [username]);
 
   if (!resumeData) {
