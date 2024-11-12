@@ -10,18 +10,16 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
-
-  console.log('apiUrl:', apiUrl);
   
   try {
       const response = await fetch(apiUrl, {
       method: 'POST',
       body: formData,
     })
-    
     const data = await response.json()
     return NextResponse.json(data)
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: 'Failed to process the resume' },
       { status: 500 }
