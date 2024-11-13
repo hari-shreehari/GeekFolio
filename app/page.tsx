@@ -38,7 +38,7 @@ const Preview = () => {
           <nav className="space-x-6">
             <Link href="#" className="hover:underline">PORTFOLIOS</Link>
             <Link href="/templates" className="hover:underline">TEMPLATES</Link>
-            <Link href="#" className="hover:underline">RESOURCES</Link>
+            <Link href="/resources" className="hover:underline">RESOURCES</Link>
           </nav>
           <div className="space-x-4">
             <button className="px-4 py-2 rounded hover:bg-teal-700">LOG IN</button>
