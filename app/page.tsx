@@ -1,82 +1,41 @@
-"use client"; // Add this directive
+import Header from "@/components/Header"
+import Hero from "@/components/Hero"
+import FeatureSection from "@/components/FeatureSection"
+import Footer from "@/components/Footer"
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-
-const Preview = () => {
-  const texts = [
-    "Resume in portfolio out",
-    "JSON-rich templates stout",
-    "Custom domain no doubt",
-    "Smooth as silk geek it out!"
-  ];
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const router = useRouter();
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % texts.length);
-    }, 2000); // Change text every 2 seconds
-
-    return () => clearInterval(interval);
-  }, [texts.length]);
-
+export default function Home() {
   return (
-    <div className="min-h-screen text-white relative">
-      <img 
-        src="image.png" 
-        alt="Background" 
-        className="absolute inset-0 w-full h-full object-cover z-0" // Adjust the scale value to zoom
-      />
-      <div className="relative z-10 min-h-screen">
-        <header className="p-4 flex justify-between items-center -ml-[2px] px-10">
-          <div className="text-2xl font-bold">
-            <h1>VULTR</h1>
-          </div>
-          <nav className="space-x-6">
-            <Link href="#" className="hover:underline">PORTFOLIOS</Link>
-            <Link href="/templates" className="hover:underline">TEMPLATES</Link>
-            <Link href="/resources" className="hover:underline">RESOURCES</Link>
-          </nav>
-          <div className="space-x-4">
-            <button className="px-4 py-2 rounded hover:bg-teal-700">LOG IN</button>
-            <button className="px-4 py-2 bg-white text-black rounded hover:bg-gray-100" onClick={() => router.push('/uploads')}>Upload</button>
-          </div>
-        </header>
-        
-        <main className="container mx-auto mt-48 py-16 px-10 flex items-start justify-start h-3/4 -ml-[2px]">
-          <div className="w-[65vh] text-left">
-            <div className="text-md mb-4">
-              <span className="mr-2">WEBSITES</span>
-              <span className="text-teal-300">&gt;</span>
-              <span className="ml-2">PORTFOLIOS</span>
-            </div>
-            <h1 className="text-7xl font-bold mb-6">Create a portfolio website</h1>
-            <p className="text-lg md:text-xl mb-8">
-              Showcase your work online with a portfolio website. Get started with a
-              professionally designed template that can be customized to fit your brand.
-            </p>
-            <button 
-              className="px-8 py-4 bg-white text-black text-lg font-semibold rounded hover:bg-gray-100"
-              onClick={() => router.push('/uploads')}
-            >
-              Upload Resume
-            </button>
-          </div>
-        </main>
-
-        <div className="absolute ml-6 top-[50%] left-[60%] transform -translate-x-1/2 -translate-y-1/2 text-teal-700 text-2xl font-bold space-y-1">
-          {texts.map((text, index) => (
-            <div key={index} className={index === currentIndex ? "underline opacity-65" : "opacity-45"}>
-              {text}
-            </div>
-          ))}
-        </div>
-      </div>
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      <Header />
+      <main className="flex-grow">
+        <Hero />
+        <FeatureSection
+          title="Build Your Resume"
+          description="Create a professional resume in minutes with our easy-to-use builder."
+          shortDescription="Choose from a variety of templates and customize to your heart's content."
+          imageSrc="/resume-builder.png"
+          imageAlt="Resume Builder Screenshot"
+          direction="right"
+        />
+        <FeatureSection
+          title="Create Portfolio"
+          description="Transform your resume into a stunning portfolio."
+          shortDescription="Showcase your projects, skills, and achievements with our beautiful templates."
+          imageSrc="/portfolio-creator.png"
+          imageAlt="Portfolio Creator Screenshot"
+          direction="left"
+        />
+        <FeatureSection
+          title="Host for Free"
+          description="Get your portfolio online in seconds."
+          shortDescription="Host your site under a custom domain, all for free. No hidden costs, just pure awesomeness."
+          imageSrc="/hosting-service.png"
+          imageAlt="Hosting Service Screenshot"
+          direction="right"
+        />
+      </main>
+      <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default Preview;
