@@ -1,8 +1,23 @@
-"use client"
+"use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { RefreshCw, Upload as UploadIcon, Palette, Globe, Eye, ArrowLeft, ArrowRight, Check } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  RefreshCw,
+  Upload as UploadIcon,
+  Palette,
+  Globe,
+  Eye,
+  ArrowLeft,
+  ArrowRight,
+  Check,
+} from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import ColorfulTemplateSelection from "@/components/Templates";
 import { BusinessPortfolioComponent as Business } from "@/components/Site/Business";
@@ -20,7 +35,7 @@ const steps = [
 export default function Upload() {
   const [currentStep, setCurrentStep] = useState(1);
   const [resumeData, setResumeData] = useState<any>(null);
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState("");
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
@@ -28,7 +43,9 @@ export default function Upload() {
   const [isPreviewMode, setIsPreviewMode] = useState(false);
   const router = useRouter();
 
-  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const selectedFile = event.target.files?.[0];
     if (!selectedFile) return;
 
@@ -37,52 +54,50 @@ export default function Upload() {
   };
 
   const handleProcessCompletion = async (file: File) => {
-      setAiLoading(true);
-      setError(null);
-  
-      const formData = new FormData();
-      formData.append('file', file);
-  
-      try {
-          const response = await fetch("/api/extract", {
-              method: 'POST',
-              body: formData,
-          });
-  
-          if (!response.ok) {
-              throw new Error('Failed to process resume');
-          }
-  
-          const parsedData = await response.json();
-          console.log(parsedData.structured_json);
-          const formattedData = JSON.parse(parsedData.structured_json);                                             
-  
-          setResumeData(formattedData);
-          setCurrentStep(2);
-      } catch (err) {
-          setError('Failed to process the resume. Please try again.');
-      } finally {
-          setAiLoading(false);
+    setAiLoading(true);
+    setError(null);
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch("/api/extract", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to process resume");
       }
+
+      const formattedData = await response.json();
+
+      setResumeData(formattedData);
+      setCurrentStep(2);
+    } catch (err) {
+      setError("Failed to process the resume. Please try again.");
+    } finally {
+      setAiLoading(false);
+    }
   };
 
   const handleTemplateSelection = (templateName: string) => {
     setSelectedTemplate(templateName);
-    console.log("handleTemplateSelection",resumeData)
+    console.log("handleTemplateSelection", resumeData);
     setCurrentStep(3);
   };
 
   const renderTemplate = () => {
     if (!resumeData || !selectedTemplate) return null;
-  
+
     switch (selectedTemplate) {
-      case 'Minimalist Pro':
+      case "Minimalist Pro":
         return <Minimal data={resumeData} />;
-      case 'Creative Portfolio':
+      case "Creative Portfolio":
         return <Creative data={resumeData} />;
-      case 'Tech Innovator':
+      case "Tech Innovator":
         return <Tech data={resumeData} />;
-      case 'Business Professional':
+      case "Business Professional":
         return <Business data={resumeData} />;
       default:
         return <div>No template selected</div>;
@@ -95,22 +110,22 @@ export default function Upload() {
 
   const handlePublish = async () => {
     if (!username.trim()) {
-      setError('Please enter a username');
+      setError("Please enter a username");
       return;
     }
-  
+
     if (!resumeData || !selectedTemplate) {
-      setError('Missing required data. Please complete all steps.');
+      setError("Missing required data. Please complete all steps.");
       return;
     }
-  
+
     try {
       const portfolioContent = renderTemplate();
-      
-      const response = await fetch('/api/publish', {
-        method: 'POST',
+
+      const response = await fetch("/api/publish", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           username,
@@ -119,18 +134,18 @@ export default function Upload() {
           portfolioContent,
         }),
       });
-  
+
       if (!response.ok) {
-        throw new Error('Failed to publish portfolio');
+        throw new Error("Failed to publish portfolio");
       }
-  
+
       const data = await response.json();
-      console.log('Portfolio published successfully:', data);
+      console.log("Portfolio published successfully:", data);
       router.push(`/portfolio/${username}`);
     } catch (error) {
-      console.error('Publish error:', error);
-      setError('Failed to publish portfolio. Please try again.');
-    } 
+      console.error("Publish error:", error);
+      setError("Failed to publish portfolio. Please try again.");
+    }
   };
 
   const renderStepContent = () => {
@@ -140,7 +155,7 @@ export default function Upload() {
           <div className="bg-white rounded-lg shadow-lg p-8">
             <div className="flex justify-between items-center mb-8">
               <h2 className="text-2xl font-bold">Portfolio Preview</h2>
-              <Button 
+              <Button
                 onClick={() => setIsPreviewMode(false)}
                 variant="outline"
                 className="hover:bg-purple-50"
@@ -183,7 +198,9 @@ export default function Upload() {
                 >
                   <UploadIcon className="w-12 h-12 text-purple-500 mb-4" />
                   <span className="text-lg font-medium text-purple-700">
-                    {file ? file.name : "Drop your resume here or click to browse"}
+                    {file
+                      ? file.name
+                      : "Drop your resume here or click to browse"}
                   </span>
                   <span className="text-sm text-gray-500 mt-2">
                     Supported formats: PDF, IMAGE, DOCX
@@ -193,7 +210,9 @@ export default function Upload() {
               {aiLoading && (
                 <div className="flex items-center justify-center mt-6 p-4 bg-purple-50 rounded-lg">
                   <RefreshCw className="h-6 w-6 animate-spin text-purple-600" />
-                  <span className="ml-2 font-medium text-purple-700">Processing your resume...</span>
+                  <span className="ml-2 font-medium text-purple-700">
+                    Processing your resume...
+                  </span>
                 </div>
               )}
             </CardContent>
@@ -209,12 +228,15 @@ export default function Upload() {
                 Choose Your Template
               </CardTitle>
               <CardDescription>
-                Select a template that best represents your professional identity
+                Select a template that best represents your professional
+                identity
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="border border-gray-300 rounded-lg p-4 h-[500px] overflow-y-auto shadow-inner">
-                <ColorfulTemplateSelection onSelectTemplate={handleTemplateSelection} />
+                <ColorfulTemplateSelection
+                  onSelectTemplate={handleTemplateSelection}
+                />
               </div>
             </CardContent>
           </Card>
@@ -232,14 +254,14 @@ export default function Upload() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <Button 
+              <Button
                 onClick={handlePreview}
                 className="w-full bg-purple-600 hover:bg-purple-700 text-white"
               >
                 <Eye className="w-4 h-4 mr-2" />
                 Preview Portfolio
               </Button>
-              <Button 
+              <Button
                 onClick={() => setCurrentStep(4)}
                 className="w-full bg-green-600 hover:bg-green-700 text-white"
               >
@@ -264,7 +286,9 @@ export default function Upload() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">Username</label>
+                <label className="text-sm font-medium text-gray-700">
+                  Username
+                </label>
                 <input
                   type="text"
                   value={username}
@@ -273,7 +297,7 @@ export default function Upload() {
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                 />
               </div>
-              <Button 
+              <Button
                 onClick={handlePublish}
                 className="w-full bg-green-600 hover:bg-green-700 text-white"
               >
@@ -298,23 +322,31 @@ export default function Upload() {
             {steps.map((step, index) => (
               <div key={step.number} className="flex items-center">
                 <div className="flex flex-col items-center">
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
-                    currentStep >= step.number 
-                      ? 'bg-white text-purple-600' 
-                      : 'bg-gray-300 text-gray-500'
-                  }`}>
+                  <div
+                    className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
+                      currentStep >= step.number
+                        ? "bg-white text-purple-600"
+                        : "bg-gray-300 text-gray-500"
+                    }`}
+                  >
                     <step.icon className="w-6 h-6" />
                   </div>
-                  <span className={`mt-2 text-sm font-medium ${
-                    currentStep >= step.number ? 'text-white' : 'text-gray-300'
-                  }`}>
+                  <span
+                    className={`mt-2 text-sm font-medium ${
+                      currentStep >= step.number
+                        ? "text-white"
+                        : "text-gray-300"
+                    }`}
+                  >
                     {step.title}
                   </span>
                 </div>
                 {index < steps.length - 1 && (
-                  <div className={`h-1 w-24 mx-4 transition-all duration-300 ${
-                    currentStep > step.number ? 'bg-white' : 'bg-gray-300'
-                  }`} />
+                  <div
+                    className={`h-1 w-24 mx-4 transition-all duration-300 ${
+                      currentStep > step.number ? "bg-white" : "bg-gray-300"
+                    }`}
+                  />
                 )}
               </div>
             ))}
@@ -323,7 +355,7 @@ export default function Upload() {
       )}
 
       {renderStepContent()}
-      
+
       {error && (
         <div className="mt-4 p-4 bg-red-100 text-red-700 rounded-lg flex items-center">
           <span className="mr-2">⚠️</span>
@@ -334,7 +366,7 @@ export default function Upload() {
       {!isPreviewMode && currentStep > 1 && (
         <div className="mt-6">
           <Button
-            onClick={() => setCurrentStep(current => current - 1)}
+            onClick={() => setCurrentStep((current) => current - 1)}
             variant="outline"
             className="bg-white text-purple-600 border-purple-300 hover:bg-purple-50"
           >
