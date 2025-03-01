@@ -1,15 +1,23 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Database, Mail, Linkedin, Github, MapPin, Briefcase, GraduationCap, Lightbulb, Award } from "lucide-react"
-import { ReactNode } from 'react';
-import { ResumeData } from '@/utils/types'
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Database,
+  Mail,
+  Linkedin,
+  Github,
+  Lightbulb,
+  Award,
+  Briefcase,
+  GraduationCap,
+} from "lucide-react";
+import { ReactNode } from "react";
+import { ResumeData } from "@/utils/types";
 
 const AnimatedSection = ({ children }: { children: ReactNode }) => (
   <motion.div
@@ -19,24 +27,40 @@ const AnimatedSection = ({ children }: { children: ReactNode }) => (
   >
     {children}
   </motion.div>
-)
+);
 
-const IconWrapper = ({ icon: Icon }: { icon: React.ComponentType<React.SVGProps<SVGSVGElement>> }) => (
+const IconWrapper = ({
+  icon: Icon,
+}: {
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+}) => (
   <div className="bg-red-100 p-2 rounded-full">
     <Icon className="w-6 h-6 text-red-600" />
   </div>
-)
+);
 
-export function ComprehensiveDataAnalystPortfolio({ data }: { data: ResumeData }) {
-  const [activeTab, setActiveTab] = useState('about')
+export function ComprehensiveDataAnalystPortfolio({
+  data,
+}: {
+  data: ResumeData;
+}) {
+  const [activeTab, setActiveTab] = useState("about");
 
   return (
     <div className="min-h-screen bg-yellow-50">
       <header className="bg-yellow-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-red-900">{data.personal_information[0].name}</h1>
+          <h1 className="text-3xl font-bold text-red-900">
+            {data.personal_information.name[0]}
+          </h1>
           <nav>
-            {['about', 'experience', 'projects', 'education', 'achievements'].map((tab) => (
+            {[
+              "about",
+              "experience",
+              "projects",
+              "education",
+              "achievements",
+            ].map((tab) => (
               <Button
                 key={tab}
                 variant={activeTab === tab ? "destructive" : "ghost"}
@@ -57,34 +81,62 @@ export function ComprehensiveDataAnalystPortfolio({ data }: { data: ResumeData }
               <CardContent className="pt-6">
                 <div className="flex flex-col items-center">
                   <Avatar className="w-32 h-32 mb-4 border-4 border-red-200">
-                    <AvatarImage src={data.personal_information[0].name[0] || "/placeholder.svg"} alt={String(data.personal_information[0].name)} />
-                    <AvatarFallback>{data.personal_information[0].name.map(n => n[0]).join('')}</AvatarFallback>
+                    <AvatarImage
+                      src={
+                        data.personal_information.name[0][0] ||
+                        "/placeholder.svg"
+                      }
+                      alt={data.personal_information.name[0]}
+                    />
+                    <AvatarFallback>
+                      {data.personal_information.name[0].charAt(0)}
+                    </AvatarFallback>
                   </Avatar>
-                  <h2 className="text-2xl font-bold text-center mb-1">{data.personal_information[0].name}</h2>
+                  <h2 className="text-2xl font-bold text-center mb-1">
+                    {data.personal_information.name[0]}
+                  </h2>
                   <p className="text-sm text-red-700 text-center mb-4">
-                    {data.personal_information[0].objective_summary[0].professional_summary || data.personal_information[0].objective_summary[0].career_objective}
+                    {data.objective_summary[0].professional_summary[0] ||
+                      data.objective_summary[0].career_objective[0]}
                   </p>
                   <div className="flex justify-center space-x-2 mb-6">
                     <Button variant="outline" size="icon" asChild>
-                      <a href={`mailto:${data.personal_information[0].contact_information[0].email}`}>
+                      <a
+                        href={`mailto:${data.personal_information.contact_information.email[0]}`}
+                      >
                         <Mail size={18} />
                       </a>
                     </Button>
                     <Button variant="outline" size="icon" asChild>
-                      <a href={data.personal_information[0].linkedin_profile[0]} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={data.personal_information.linkedin_profile[0]}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <Linkedin size={18} />
                       </a>
                     </Button>
                     <Button variant="outline" size="icon" asChild>
-                      <a href={data.personal_information[0].github_profile[0]} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={data.personal_information.github_profile[0]}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <Github size={18} />
                       </a>
                     </Button>
                   </div>
                 </div>
                 <div className="text-center">
-                  <p className="text-sm text-red-900">{data.personal_information[0].contact_information[0].address}</p>
-                  <p className="text-sm text-red-800">{data.personal_information[0].contact_information[0].phone_number}</p>
+                  <p className="text-sm text-red-900">
+                    {data.personal_information.contact_information.address[0]}
+                  </p>
+                  <p className="text-sm text-red-800">
+                    {
+                      data.personal_information.contact_information
+                        .phone_number[0]
+                    }
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -92,7 +144,7 @@ export function ComprehensiveDataAnalystPortfolio({ data }: { data: ResumeData }
 
           <div className="lg:col-span-2 space-y-8">
             <AnimatedSection>
-              {activeTab === 'about' && (
+              {activeTab === "about" && (
                 <Card className="border-red-200">
                   <CardHeader>
                     <div className="flex items-center">
@@ -101,15 +153,23 @@ export function ComprehensiveDataAnalystPortfolio({ data }: { data: ResumeData }
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <h3 className="font-semibold text-red-800 mb-2">Career Objective</h3>
-                    <p className="text-red-800 mb-4">{data.personal_information[0].objective_summary[0].career_objective}</p>
-                    <h3 className="font-semibold text-red-800 mb-2">Professional Summary</h3>
-                    <p className="text-red-800">{data.personal_information[0].objective_summary[0].professional_summary}</p>
+                    <h3 className="font-semibold text-red-800 mb-2">
+                      Career Objective
+                    </h3>
+                    <p className="text-red-800 mb-4">
+                      {data.objective_summary[0].career_objective[0]}
+                    </p>
+                    <h3 className="font-semibold text-red-800 mb-2">
+                      Professional Summary
+                    </h3>
+                    <p className="text-red-800">
+                      {data.objective_summary[0].professional_summary[0]}
+                    </p>
                   </CardContent>
                 </Card>
               )}
 
-              {activeTab === 'experience' && (
+              {activeTab === "experience" && (
                 <Card className="border-red-200">
                   <CardHeader>
                     <div className="flex items-center">
@@ -120,17 +180,25 @@ export function ComprehensiveDataAnalystPortfolio({ data }: { data: ResumeData }
                   <CardContent>
                     {data.experience.map((job, index) => (
                       <div key={index} className="mb-6 last:mb-0">
-                        <h3 className="font-semibold text-red-800">{job.job_title}</h3>
+                        <h3 className="font-semibold text-red-800">
+                          {job.job_title[0]}
+                        </h3>
                         <p className="text-sm text-red-700">
-                          {job.company_name} - {job.location.city}, {job.location.state}
+                          {job.company_name[0]} -{" "}
+                          {typeof job.location === "string"
+                            ? job.location
+                            : `${(job.location as any).city}, ${(job.location as any).state}`}
                         </p>
                         <p className="text-sm text-red-600">
-                          {job.dates_of_employment.start_date} - {job.dates_of_employment.end_date}
+                          {job.dates_of_employment.start_date[0]} -{" "}
+                          {job.dates_of_employment.end_date[0]}
                         </p>
                         <ul className="list-disc list-inside text-red-800 mt-2">
-                          {job.responsibilities_achievements.map((responsibility, idx) => (
-                            <li key={idx}>{responsibility}</li>
-                          ))}
+                          {job.responsibilities_achievements.map(
+                            (responsibility, idx) => (
+                              <li key={idx}>{responsibility}</li>
+                            ),
+                          )}
                         </ul>
                       </div>
                     ))}
@@ -138,7 +206,7 @@ export function ComprehensiveDataAnalystPortfolio({ data }: { data: ResumeData }
                 </Card>
               )}
 
-              {activeTab === 'projects' && (
+              {activeTab === "projects" && (
                 <Card className="border-red-200">
                   <CardHeader>
                     <div className="flex items-center">
@@ -149,62 +217,89 @@ export function ComprehensiveDataAnalystPortfolio({ data }: { data: ResumeData }
                   <CardContent>
                     {data.projects.map((project, index) => (
                       <div key={index} className="mb-6 last:mb-0">
-                        <h3 className="font-semibold text-red-800">{project.project_title}</h3>
+                        <h3 className="font-semibold text-red-800">
+                          {project.project_title[0]}
+                        </h3>
                         <p className="text-sm text-red-700">
-                          Technologies Used: {project.technologies_used.join(', ')}
+                          Technologies Used:{" "}
+                          {Array.isArray(project.technologies_used)
+                            ? project.technologies_used.join(", ")
+                            : project.technologies_used}
                         </p>
                         <p className="text-sm text-red-600">
-                          {project.duration.start_date} - {project.duration.end_date}
+                          {project.duration.start_date[0]} -{" "}
+                          {project.duration.end_date[0]}
                         </p>
-                        <p className="text-red-800 mt-2">{project.project_description}</p>
-                        {project.project_links && (
-                          <a 
-                            href={String(project.project_links)} 
-                            className="text-red-600 hover:text-red-800 mt-2 inline-block"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            View Project
-                          </a>
-                        )}
+                        <p className="text-red-800 mt-2">
+                          {Array.isArray(project.project_description)
+                            ? project.project_description[0]
+                            : project.project_description}
+                        </p>
+                        {project.project_links &&
+                          project.project_links.length > 0 && (
+                            <a
+                              href={project.project_links[0]}
+                              className="text-red-600 hover:text-red-800 mt-2 inline-block"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              View Project
+                            </a>
+                          )}
                       </div>
                     ))}
                   </CardContent>
                 </Card>
               )}
 
-              {activeTab === 'education' && (
+              {activeTab === "education" && (
                 <Card className="border-red-200">
                   <CardHeader>
                     <div className="flex items-center">
                       <IconWrapper icon={GraduationCap} />
-                      <CardTitle className="ml-2">Education & Certifications</CardTitle>
+                      <CardTitle className="ml-2">
+                        Education & Certifications
+                      </CardTitle>
                     </div>
                   </CardHeader>
                   <CardContent>
                     <Tabs defaultValue="education" className="w-full">
                       <TabsList className="mb-4">
                         <TabsTrigger value="education">Education</TabsTrigger>
-                        <TabsTrigger value="certifications">Certifications</TabsTrigger>
+                        <TabsTrigger value="certifications">
+                          Certifications
+                        </TabsTrigger>
                       </TabsList>
                       <TabsContent value="education">
                         {data.education.map((edu, index) => (
                           <div key={index} className="mb-4 last:mb-0">
                             <h3 className="font-semibold text-red-800">
-                              {edu.degree} in {edu.major_field_of_study}
+                              {edu.degree[0]} in {edu.major_field_of_study[0]}
                             </h3>
-                            <p className="text-sm text-red-700">{edu.university_institution_name}</p>
-                            <p className="text-sm text-red-600">{edu.graduation_date}</p>
-                            <p className="text-sm text-red-700">CGPA: {edu.cgpa_grades}</p>
+                            <p className="text-sm text-red-700">
+                              {edu.university_institution_name[0]}
+                            </p>
+                            <p className="text-sm text-red-600">
+                              {edu.graduation_date[0]}
+                            </p>
+                            <p className="text-sm text-red-700">
+                              CGPA: {edu.cgpa_grades[0]}
+                            </p>
                           </div>
                         ))}
                       </TabsContent>
                       <TabsContent value="certifications">
                         {data.certifications.map((cert, index) => (
                           <div key={index} className="mb-4 last:mb-0">
-                            <h3 className="font-semibold text-red-800">{cert.certification_title}</h3>
-                            <p className="text-sm text-red-700">{cert.issuing_organization}</p>
-                            <p className="text-sm text-red-600">{cert.date_obtained}</p>
+                            <h3 className="font-semibold text-red-800">
+                              {cert.certification_title[0]}
+                            </h3>
+                            <p className="text-sm text-red-700">
+                              {cert.issuing_organization[0]}
+                            </p>
+                            <p className="text-sm text-red-600">
+                              {cert.date_obtained[0]}
+                            </p>
                           </div>
                         ))}
                       </TabsContent>
@@ -213,7 +308,7 @@ export function ComprehensiveDataAnalystPortfolio({ data }: { data: ResumeData }
                 </Card>
               )}
 
-              {activeTab === 'achievements' && (
+              {activeTab === "achievements" && (
                 <Card className="border-red-200">
                   <CardHeader>
                     <div className="flex items-center">
@@ -223,8 +318,10 @@ export function ComprehensiveDataAnalystPortfolio({ data }: { data: ResumeData }
                   </CardHeader>
                   <CardContent>
                     <ul className="list-disc list-inside text-red-800">
-                      {data.achievements.awards_honors.map((achievement, index) => (
-                        <li key={index}>{achievement}</li>
+                      {data.achievements.map((achievement, index) => (
+                        <li key={index}>
+                          {achievement.awards_honors.join(", ")}
+                        </li>
                       ))}
                     </ul>
                   </CardContent>
@@ -235,5 +332,6 @@ export function ComprehensiveDataAnalystPortfolio({ data }: { data: ResumeData }
         </div>
       </main>
     </div>
-  )
+  );
 }
+
