@@ -2,10 +2,9 @@
 
 import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
-import { useRouter } from "next/navigation"
+import { signIn } from "next-auth/react"
 
 export default function Header() {
-    const router = useRouter()
     return (
     <header className="flex justify-between items-center p-6 border-b bg-white">
       <div className="text-2xl font-bold text-gray-800">GeekFolio</div>
@@ -13,7 +12,7 @@ export default function Header() {
 <Button 
   size="lg" 
   className="bg-white text-black border hover:border-4 transition-all duration-300 rounded-full"
-  onClick={()=>{router.push("/uploads")}}
+  onClick={() => signIn("google", { callbackUrl: "/uploads" })}
 >         
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48" className="mr-2">           
     <path fill="#EA4335" d="M24 9.5c3.9 0 6.7 1.7 8.3 3.2l5.9-5.9C34.2 3.7 29.8 1.5 24 1.5 14.9 1.5 7.1 6.8 3.3 14.1l6.9 5.3C12.6 12.7 17.9 9.5 24 9.5z"/>           
